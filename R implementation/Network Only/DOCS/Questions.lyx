@@ -1,0 +1,227 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+1) I am hoping that the variational expectation of the Cho et al paper for
+ the beta parameter is wrong:
+\end_layout
+
+\begin_layout Standard
+2) I cannot see much sparsity in the network I generate, it is actually
+ quite well connected, but I am following the generative process.
+ I was wondering how can we produce a sparser network using the same process.
+ This is usually achieved when the hyperparameter 
+\begin_inset Formula $\alpha_{k}$
+\end_inset
+
+'s for the membership vector are set to small values.
+\end_layout
+
+\begin_layout Standard
+3) I have to recheck the derivation of the lower bound.
+ The increase in log likelihood is guaranteed.
+ But I see from time to time very small glitches.
+ I have two points of doubts, one in the first line about link probability,
+ and the other one about the 
+\begin_inset Formula $\eta,\tau$
+\end_inset
+
+, in the derivations of the parameters especially.
+\end_layout
+
+\begin_layout Standard
+4) I need to reconfirm the way I implement my sums regarding the derivations
+ for the variational parameter updates.
+ Especially the ones I go through links, and the ones I go through neighbors
+ of each individual.
+ The first has no double counts, but the second one has.
+ The derivations don't imply any other ways.
+ But I need to make sure about that.
+\end_layout
+
+\begin_layout Standard
+5) If we are doing Variational EM, then this is all just the E-step, and
+ we need to estimate the model parameters(hyperparameters) as well, so we
+ need a way to estimate 
+\begin_inset Formula $\eta_{0},\eta_{1}$
+\end_inset
+
+ and also 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
+ This requires the same maximization of the ELBO with respect to the model
+ parameters, fixing the variational parameters.
+ But the expressions are not analytical, I will need help with that.
+ So in other places there are some suggestions for example for using Newton-Raph
+son method.
+ Besides after updating the variational parameters, we should be able to
+ reconstruct the actual parameters of the model in the mean field factorized
+ distribution.I use some intuitive estimate for the parameters, such as 
+\begin_inset Formula $\theta$
+\end_inset
+
+ and 
+\begin_inset Formula $\beta$
+\end_inset
+
+.
+ I also need to check this.
+ For example we have to be able to reconstruct the 
+\begin_inset Formula $Z$
+\end_inset
+
+ from 
+\begin_inset Formula $\phi$
+\end_inset
+
+, or 
+\begin_inset Formula $\theta$
+\end_inset
+
+ from 
+\begin_inset Formula $\gamma$
+\end_inset
+
+, and 
+\begin_inset Formula $\beta$
+\end_inset
+
+ from 
+\begin_inset Formula $\tau$
+\end_inset
+
+.
+ For 
+\begin_inset Formula $\theta_{a,k}=\dfrac{\gamma_{a,k}}{\sum_{l}\gamma_{a,l}}$
+\end_inset
+
+, and for 
+\begin_inset Formula $\beta_{k,k}=\dfrac{\tau_{0,k}}{\tau_{0,k}+\tau_{1,k}}$
+\end_inset
+
+.
+ But I am not clear whether these are reasonable, plus I don't see much
+ good output.
+\end_layout
+
+\begin_layout Standard
+For now I am fixing the model parameters skip the M-step, and only doing
+ the inference on the variational parameters, assuming I have the correct
+ model parameters.
+\end_layout
+
+\begin_layout Standard
+6) the problem of the smart/fast initializations of the global parameters
+ still remains, for now I skipped it, because I expect the random initialization
+s also should work.
+ But it would be necessary to do this as it offers a good close enough number
+ for K.
+ But for now I use the correct number K of the ground truth.
+\end_layout
+
+\begin_layout Standard
+7) Should I remove the parts in computing the ELBO, that are independent
+ of the changes in the parameters, for example if I am updating the variational
+ parameters where model parameters are untouched, can I skip those segments
+ in the ELBO that are entirely a function of model parameters?
+\end_layout
+
+\begin_layout Standard
+8) The ELBO behaves alright, but the values I am not sure if makes sense
+ or not.
+ 
+\end_layout
+
+\begin_layout Standard
+9)I do not exactly know how should I check the results.
+ What should be the measure for evaluation? Should I use the estimated parameter
+s to create links and memberships based on them to see how well I am doing?
+\end_layout
+
+\begin_layout Standard
+VISUALIZE HELP
+\end_layout
+
+\begin_layout Standard
+10) specify initializations
+\end_layout
+
+\begin_layout Standard
+11)The data given, is directed however, this will change the updates
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,1361 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Part*
+Outline for Mean Field Variational Inference in Network Only model
+\end_layout
+
+\begin_layout Standard
+In 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "cho2016latent"
+
+\end_inset
+
+, they only mention they use the simplification for the indicator variational
+ parameter for links and non links but there is no indication whether they
+ use also stochastic variational inference.Their updates make no mention
+ of the natural gradients, so we might as well be concerned with the whole
+ data for now, and later come up with exact natural gradient updates.
+ But from the updates that we derived because of the exponential family
+ criteria the updates using natural gradients would not be different at
+ least in most cases if not all.
+\end_layout
+
+\begin_layout Standard
+The network generaive process is as follows.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\forall k\in\{1\ldots K\}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\beta_{k}\sim Beta(\eta_{0},\eta_{1})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\forall a\in\{1\ldots N\}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\theta_{a}\sim Dir(\alpha)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $\forall b>a,b\in\{1\ldots N\}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $z_{a\rightarrow b}\sim Mult(\theta_{a})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $z_{a\leftarrow b}\sim Mult(\theta_{b})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Formula $y_{ab}\sim Bern(z_{a\rightarrow b}^{T}B\,z_{a\leftarrow b})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Network Generation
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:Network-Generation"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Accordingly I created networks, which graphs below explain some of their
+ properties.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/arashyazdiha/Dropbox/Arash/EUR/Workspace/CLSM/R implementation/Network Only/PNG/two nets.jpeg
+	scale 90
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Networks with 
+\begin_inset Formula $\alpha=0.33$
+\end_inset
+
+ and 
+\begin_inset Formula $\alpha=0.05$
+\end_inset
+
+ from left to right
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:twonets"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the figure the network consists 50 nodes, and the 
+\begin_inset Formula $\eta_{0}$
+\end_inset
+
+, and 
+\begin_inset Formula $\eta_{1}$
+\end_inset
+
+ are set to 10, and 1 respectively to assure high chance of connectivity
+ if two nodes share the same community when interacting with each other.
+ To ensure different distinction distinction between roles, 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ can be manipulated.
+ To observe more distinct roles we can set 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ to smaller values, as in the right panel of 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:twonets"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+To show the values of 
+\begin_inset Formula $\theta$
+\end_inset
+
+'s for each individual, I sort the the matrix including all individual 
+\begin_inset Formula $\theta$
+\end_inset
+
+'s by their argmax position, so that those with higher value in the first
+ community appear in the top-left, those with higher values for the second
+ community appear in the middle, and those with higher values for the 3rd
+ community appear in the bottom-right corner of the plot.
+ The values are represented by the shade of darkness, where the darker it
+ is the higher the value of 
+\begin_inset Formula $\theta$
+\end_inset
+
+ for that person is.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/arashyazdiha/Dropbox/Arash/EUR/Workspace/CLSM/R implementation/Network Only/PNG/net_true_heatmaps.png
+	scale 65
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+visualized 
+\begin_inset Formula $\theta$
+\end_inset
+
+ matrix for 
+\begin_inset Formula $\alpha=0.1$
+\end_inset
+
+ and 
+\begin_inset Formula $K=5$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Similarly we can show the network in this way as a binary matrix, and sorted
+ by their 
+\begin_inset Formula $\theta$
+\end_inset
+
+ positions as above.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/arashyazdiha/Dropbox/Arash/EUR/Workspace/CLSM/R implementation/Network Only/PNG/adj.png
+	scale 80
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Adjacency matrix
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So for now outline here is the for the variational inference for the whole
+ data sampling but using the simplification impled for the indicator variational
+ parameters in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gopalan2013efficient"
+
+\end_inset
+
+.
+ This means that we stick with the mean field variational inference for
+ the time being and later extend it to the stochastic variational inference.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{initialize}\,\,global\,\,variables$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{repeat}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\series bold
+\begin_inset Formula $\,\,\,\,\,\,\,\,\mathbf{for}\,\,\mathbf{each}\,\,local\,\,variational\,\,parameter$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\mathbf{update}\,\,the\,\,local\,\,variational\,\,parameter$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\mathbf{end\,\,for}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\mathbf{update}\,\,the\,\,global\,\,parameter$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{until\,\,}ELBO\,converges$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+outline for mean field variational approximation
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+The Variational Lower Bound
+\end_layout
+
+\begin_layout Standard
+Here we explain the procedure in the 
+\begin_inset Formula $\mathbf{repeat}$
+\end_inset
+
+ loop.
+ The ELBO for the network only model is as follows:
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Formula 
+\begin{eqnarray}
+\mathcal{L} & = & \underset{\underset{\in links}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,p(y_{ab}|z_{a\rightarrow b},z_{b\rightarrow a},B)\Big]\nonumber \\
+ &  & +\underset{\underset{\in nonlinks}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,p(y_{ab}|z_{a\rightarrow b},z_{b\rightarrow a},B)\Big]\nonumber \\
+ &  & +\underset{\underset{\in links}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,p(z_{a\rightarrow b}|\theta_{a})\Big]+\underset{\underset{\in links}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,p(z_{b\rightarrow a}|\theta_{b})\Big]\nonumber \\
+ &  & -\underset{\underset{\in links}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,q(z_{a\rightarrow b},z_{a\leftarrow b}|\phi_{ab})\Big]\\
+ &  & +\underset{\underset{\in nonlinks}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,p(z_{a\rightarrow b}|\theta_{a})\Big]-\underset{\underset{\in nonlinks}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,q(z_{a\rightarrow b}|\phi_{a\rightarrow b})\Big]\nonumber \\
+ &  & +\underset{\underset{\in nonlinks}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,p(z_{b\rightarrow a}|\theta_{b})\Big]-\underset{\underset{\in nonlinks}{a,b}}{\sum}\mathbb{E}_{q}\Big[log\,q(z_{b\rightarrow a}|\phi_{b\rightarrow a})\Big]\nonumber \\
+ &  & +\underset{a}{\sum}\mathbb{E}_{q}\Big[log\,p(\theta_{a}|\alpha)\Big]-+\underset{a}{\sum}\mathbb{E}_{q}\Big[log\,q(\theta_{a}|\gamma_{a})\Big]\nonumber \\
+ &  & +\underset{k}{\sum}\mathbb{E}_{q}\Big[log\,p(\beta_{k}|\eta_{0},\eta_{1})\Big]-\underset{k}{\sum}\mathbb{E}_{q}\Big[log\,q(\beta_{k}|\tau_{k,0},\tau_{k,1})\Big]
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When dealing with the individual pairs, we distinguish between the case
+ where there is a link between the two versus when a link is absent.
+ This is mostly crucial in determining the complexity of the inference.
+ We know that the communities indicated by the role indicator when there
+ is a link is the same as the ones in the case of the absent link.
+ As each variational element requires a variational parameter, we would
+ need 
+\begin_inset Formula $\mathcal{O}(N^{2})$
+\end_inset
+
+ variational parameters for the the role indicators.
+ This however complicates the estimation, and is quite wasteful of space
+ and time.
+ As the communities are similar in both cases of links and non-links, we
+ replace the variational parameters of the role indicators for the case
+ of non-links with the average of those of the links.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\phi_{a\rightarrow m,k} & = & \dfrac{\sum_{b\in links(a)}\phi_{ab}^{kk}}{deg(a)}=\bar{\phi}_{a,k}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For short we show the variational parameter 
+\begin_inset Formula $\phi_{a\rightarrow b,k}$
+\end_inset
+
+, and 
+\begin_inset Formula $\phi_{b\rightarrow a,k}$
+\end_inset
+
+ in the case of links between 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+, as 
+\begin_inset Formula $\phi_{ab}^{kk}$
+\end_inset
+
+(both activating role k).
+ Note that 
+\begin_inset Formula $\underset{k\neq l}{\sum}\phi_{ab}^{kl}=0$
+\end_inset
+
+, and as the 
+\begin_inset Formula $\beta_{kl}=\epsilon$
+\end_inset
+
+ in this case and 
+\begin_inset Formula $\epsilon\rightarrow0$
+\end_inset
+
+, then 
+\begin_inset Formula $\phi_{ab}^{kl}\propto exp\{-\infty\}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the following through multiple stages we simplify the lower bound to
+ make it easier for derivations and coding as well:
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Formula 
+\begin{eqnarray}
+\mathcal{L} & = & \underset{a}{\sum}\underset{b\in links(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}z_{b\rightarrow a,k}log\,\beta_{k,0}+(1-z_{a\rightarrow b,k}z_{b\rightarrow a,k})log\,\epsilon\Bigg]\nonumber \\
+ & + & \underset{a}{\sum}\underset{b\in nonlinks(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}z_{b\rightarrow a,k}log\,\beta_{k,1}+(1-z_{a\rightarrow b,k}z_{b\rightarrow a,k})log\,(1-\epsilon)\Bigg]\nonumber \\
+ & + & \underset{a}{\sum}\underset{b\in links(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}log\,\theta_{a,k}+z_{b\rightarrow a,k}log\,\theta_{b,k}\Bigg]\nonumber \\
+ & - & \underset{a}{\sum}\underset{b\in links(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}z_{b\rightarrow a,k}\,log\,\phi_{ab}^{kk}\Bigg]\nonumber \\
+ & + & \underset{a}{\sum}\underset{b\in nonlinks(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}log\,\theta_{a,k}-z_{a\rightarrow b,k}log\,\phi_{a\rightarrow b,k}\Bigg]\nonumber \\
+ & + & \underset{a}{\sum}\underset{b\in nonlinks(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{b\rightarrow a,k}log\,\theta_{b,k}-z_{b\rightarrow a,k}log\,\phi_{b\rightarrow a,k}\Bigg]\nonumber \\
+ & + & \sum_{a}log\,\Gamma(\sum_{k}\alpha_{k})-\sum_{a}\sum_{k}log\,\Gamma(\alpha_{k})+\sum_{a}\sum_{k}(\alpha_{k}-1)\mathbb{E}_{q}\Bigg[log\,\theta_{a,k}\Bigg]\nonumber \\
+ & - & \sum_{a}log\,\Gamma(\sum_{k}\gamma_{a,k})+\sum_{a}\sum_{k}log\,\Gamma(\gamma_{a,k})-\sum_{a}\sum_{k}(\gamma_{a,k}-1)\mathbb{E}_{q}\Bigg[log\,\theta_{a,k}\Bigg]\nonumber \\
+ & + & \sum_{k}log\,\Gamma(\eta_{0}+\eta_{1})-\sum_{k}log\,\Gamma(\eta_{0})-\sum_{k}log\,\Gamma(\eta_{1})+\sum_{k}(\eta_{0}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,0}\Bigg]\nonumber \\
+ & + & \sum_{k}(\eta_{1}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,1}\Bigg]\nonumber \\
+ & - & \sum_{k}log\,\Gamma(\tau_{k,0}+\tau_{k,1})+\sum_{k}log\,\Gamma(\tau_{k,0})+\sum_{k}log\,\Gamma(\tau_{k,1})-\sum_{k}(\tau_{k,0}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,0}\Bigg]\nonumber \\
+ & - & \sum_{k}(\tau_{k,1}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,1}\Bigg]
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can take the obvious expectations and the bound becomes(is the first
+ line correct?):
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Formula 
+\begin{eqnarray}
+\mathcal{L} & = & \underset{a,b\in links}{\sum}\underset{k}{\sum}\Bigg(\phi_{ab}^{kk}\mathbb{E}_{q}\Bigg[log\,\beta_{k,0}\Bigg]+(1-\phi_{ab}^{kk})log\,\epsilon\Bigg)\nonumber \\
+ & + & \underset{a,b\notin links}{\sum}\underset{k}{\sum\Bigg(}\bar{\phi}_{a,k}\bar{\phi}_{b,k}\mathbb{E}_{q}\Bigg[log\,\beta_{k,1}\Bigg]+(1-\bar{\phi}_{a,k}\bar{\phi}_{b,k})log\,(1-\epsilon)\Bigg)\nonumber \\
+ & + & \underset{a,b\in links}{\sum}\sum_{k}\Bigg(\phi_{ab}^{kk}\mathbb{E}_{q}\Bigg[log\,\theta_{a,k}\Bigg]+\phi_{ab}^{kk}\mathbb{E}_{q}\Bigg[log\,\theta_{b,k}\Bigg]\Bigg)\nonumber \\
+ & - & \underset{a,b\in links}{\sum}\sum_{k}\Bigg(\phi_{ab}^{kk}log\,\phi_{ab}^{kk}\Bigg)\nonumber \\
+ & + & \underset{a,b\notin links}{\sum}\underset{k}{\sum}\Bigg(\bar{\phi}_{a,k}\mathbb{E}_{q}\Bigg[log\,\theta_{a,k}\Bigg]-\bar{\phi}_{a,k}log\,\bar{\phi}_{a,k}\Bigg)\nonumber \\
+ & + & \underset{a,b\notin links}{\sum}\sum_{k}\Bigg(\bar{\phi}_{b,k}\mathbb{E}_{q}\Bigg[log\,\theta_{b,k}\Bigg]-\bar{\phi}_{b,k}log\,\bar{\phi}_{b,k}\Bigg)\nonumber \\
+ & + & \sum_{a}log\,\Gamma(\sum_{k}\alpha_{k})-\sum_{a}\sum_{k}log\,\Gamma(\alpha_{k})+\sum_{a}\sum_{k}(\alpha_{k}-1)\mathbb{E}_{q}\Bigg[log\,\theta_{a,k}\Bigg]\nonumber \\
+ & - & \sum_{a}log\,\Gamma(\sum_{k}\gamma_{a,k})+\sum_{a}\sum_{k}log\,\Gamma(\gamma_{a,k})-\sum_{a}\sum_{k}(\gamma_{a,k}-1)\mathbb{E}_{q}\Bigg[log\,\theta_{a,k}\Bigg]\nonumber \\
+ & + & \sum_{k}log\,\Gamma(\eta_{0}+\eta_{1})-\sum_{k}log\,\Gamma(\eta_{0})-\sum_{k}log\,\Gamma(\eta_{1})+\sum_{k}(\eta_{0}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,0}\Bigg]\nonumber \\
+ & + & \sum_{k}(\eta_{1}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,1}\Bigg]\nonumber \\
+ & - & \sum_{k}log\,\Gamma(\tau_{k,0}+\tau_{k,1})+\sum_{k}log\,\Gamma(\tau_{k,0})+\sum_{k}log\,\Gamma(\tau_{k,1})-\sum_{k}(\tau_{k,0}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,0}\Bigg]\nonumber \\
+ & - & \sum_{k}(\tau_{k,1}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,1}\Bigg]
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Taking the remaining expectations for Beta and Dirichlet distribution parameters
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\mathcal{L} & = & \underset{a,b\in links}{\sum}\underset{k}{\sum}\Bigg(\phi_{ab}^{kk}(\Psi(\tau_{k,0})-\Psi(\tau_{k,0}+\tau_{k,1}))+(1-\phi_{ab}^{kk})log\,\epsilon\Bigg)\nonumber \\
+ & + & \underset{a,b\notin links}{\sum}\underset{k}{\sum\Bigg(}\bar{\phi}_{a,k}\bar{\phi}_{b,k}(\Psi(\tau_{k,1})-\Psi(\tau_{k,0}+\tau_{k,1}))+(1-\bar{\phi}_{a,k}\bar{\phi}_{b,k})log\,(1-\epsilon)\Bigg)\nonumber \\
+ & + & \underset{a,b\in links}{\sum}\sum_{k}\Bigg(\phi_{ab}^{kk}(\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,k}))+\phi_{ab}^{kk}(\Psi(\gamma_{b,k})-\Psi(\sum_{k}\gamma_{b,k}))\Bigg)\nonumber \\
+ & - & \underset{a,b\in links}{\sum}\sum_{k}\Bigg(\phi_{ab}^{kk}log\,\phi_{ab}^{kk}\Bigg)\nonumber \\
+ & + & \underset{a,b\notin links}{\sum}\underset{k}{\sum}\Bigg(\bar{\phi}_{a,k}(\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,k}))-\bar{\phi}_{a,k}log\,\bar{\phi}_{a,k}\Bigg)\nonumber \\
+ & + & \underset{a,b\notin links}{\sum}\sum_{k}\Bigg(\bar{\phi}_{b,k}(\Psi(\gamma_{b,k})-\Psi(\sum_{k}\gamma_{b,k}))-\bar{\phi}_{b,k}log\,\bar{\phi}_{b,k}\Bigg)\nonumber \\
+ & + & \sum_{a}log\,\Gamma(\sum_{k}\alpha_{k})-\sum_{a}\sum_{k}log\,\Gamma(\alpha_{k})+\sum_{a}\sum_{k}(\alpha_{k}-1)(\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,k}))\nonumber \\
+ & - & \sum_{a}log\,\Gamma(\sum_{k}\gamma_{a,k})+\sum_{a}\sum_{k}log\,\Gamma(\gamma_{a,k})-\sum_{a}\sum_{k}(\gamma_{a,k}-1)(\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,k}))\nonumber \\
+ & + & \sum_{k}log\,\Gamma(\eta_{0}+\eta_{1})-\sum_{k}log\,\Gamma(\eta_{0})-\sum_{k}log\,\Gamma(\eta_{1})+\sum_{k}(\eta_{0}-1)(\Psi(\tau_{k,0})-\Psi(\tau_{k,0}+\tau_{k,1}))\nonumber \\
+ & + & \sum_{k}(\eta_{1}-1)(\Psi(\tau_{k,1})-\Psi(\tau_{k,0}+\tau_{k,1}))\nonumber \\
+ & - & \sum_{k}log\,\Gamma(\tau_{k,0}+\tau_{k,1})+\sum_{k}log\,\Gamma(\tau_{k,0})+\sum_{k}log\,\Gamma(\tau_{k,1})-\sum_{k}(\tau_{k,0}-1)(\Psi(\tau_{k,0})\nonumber \\
+ & - & \Psi(\tau_{k,0}+\tau_{k,1}))-\sum_{k}(\tau_{k,1}-1)(\Psi(\tau_{k,1})-\Psi(\tau_{k,0}+\tau_{k,1}))
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is all we have for the variational lower bound
+\end_layout
+
+\begin_layout Standard
+So we need to make sure we have a good computation for each term as we go
+ on.
+ As we need to keep track of each variational update, we can use those inputs
+ for the their contribution to the lower bound on the go.
+\end_layout
+
+\begin_layout Section
+Variational updates
+\end_layout
+
+\begin_layout Standard
+The updates for the network only models are:
+\end_layout
+
+\begin_layout Subsection
+The local update
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula 
+\begin{eqnarray}
+\phi_{ab}^{kk}|ab & \in & links\nonumber \\
+ & \propto & exp\Bigg\{\Psi(\tau_{k,0})-\Psi(\tau_{k,0}+\tau_{k,1})+\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,k})+\Psi(\gamma_{b,k})-\Psi(\sum_{k}\gamma_{b,k})\Bigg\}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+after this we need to normalize the 
+\begin_inset Formula $\phi_{ab}^{kk}$
+\end_inset
+
+ as over 
+\begin_inset Formula $k$
+\end_inset
+
+ they need to sum to 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ so 
+\begin_inset Formula $\sum_{k}\phi_{ab}^{kk}=1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+After this we can also update the 
+\begin_inset Formula $\bar{\phi}_{a,k}$
+\end_inset
+
+.
+ As mentioned before
+\end_layout
+
+\begin_layout Subsection
+The global update
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray}
+\tau_{k,0} & \leftarrow & \underset{a,b\in links}{\sum}\phi_{ab}^{kk}+\eta_{0}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula 
+\[
+\tau_{k,1}\leftarrow\underset{a,b\in nonlinks}{\sum}\phi_{a\rightarrow b,k}\phi_{b\rightarrow a,k}+\eta_{1}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+or simply
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\tau_{k,1}\leftarrow\eta_{1}+(\underset{a}{\sum}\bar{\phi}_{a,k}\underset{a}{\sum}\bar{\phi}_{a,k}-\underset{a}{\sum}\bar{(\phi}_{a,k})^{2})/2\,\,-\underset{(a,b)\in links}{\sum}\bar{\phi}_{a,k}\bar{\phi}_{b,k}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula 
+\[
+\gamma_{a,k}\leftarrow\alpha_{k}+\underset{b\in links(a)}{\sum}\phi_{ab}^{kk}+\underset{b\in nonlinks(a)}{\sum}\phi_{a\rightarrow b,k}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+or simply
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\gamma_{a,k}\leftarrow\alpha_{k}+\underset{b\in links(a)}{\sum}\phi_{ab}^{kk}+\big(N-1-deg(a)\big)\bar{\phi}_{a,k}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The complete algorithm then becomes :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{repeat}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $local\,\,part$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{\,\,\,\,\,\,\,\,for\,\,}a\,\,\mathbf{in}\,\,\mathcal{N}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\mathbf{for\,\,}b\,\,\mathbf{in}\,\,links(a)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,$
+\end_inset
+
+
+\begin_inset Formula $\mathbf{for}\,\,k\,\,\mathbf{in}\,\,1:K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\phi_{ab}^{kk^{(t)}}=exp\Bigg\{\Psi(\tau_{k,0})-\Psi(\tau_{k,0}+\tau_{k,1})+\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,k})+\Psi(\gamma_{b,k})-\Psi(\sum_{k}\gamma_{b,k})\Bigg\}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\bar{\phi}_{a,k}^{(t)}=\dfrac{\sum_{b\in links(a)}\phi_{ab}^{kk}}{deg(a)}$
+\end_inset
+
+ modify this
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\mathbf{end\,\,for}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\mathbf{end\,\,for}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\mathbf{end\,\,for}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $global\,\,part$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{\,\,\,\,\,\,\,\,for\,\,}k\,\,\mathbf{in}\,\,1:K$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,$
+\end_inset
+
+
+\begin_inset Formula $\mathbf{for}\,\,a\,\,\mathbf{in}\,\,\mathcal{N}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\gamma_{a,k}^{(t)}=\alpha_{k}+\underset{(a,b)\in links(a)}{\sum}\phi_{ab}^{kk}+(N-1-deg(a))\bar{\phi}_{a,k}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\mathbf{end\,\,for}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\tau_{k,0}^{t}=\eta_{0}+\underset{(a,b)\in links}{\sum}\phi_{ab}^{kk}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\tau_{k,1}^{t}=\eta_{1}+\dfrac{\underset{a}{\sum}\bar{\phi}_{a,k}\underset{a}{\sum}\bar{\phi}_{a,k}-\underset{a}{\sum}\bar{(\phi}_{a,k})^{2}}{2}-\underset{(a,b)\in links}{\sum}\bar{\phi}_{a,k}\bar{\phi}_{b,k}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\,\,\,\,\,\,\,\,\mathbf{end\,\,for}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{compute}\,\,\mathcal{L}\,\,on\,\,the\,\,go$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{until}\,\mathcal{L}^{(t)}-\mathcal{L}^{(t-1)}<1e-08$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Outline for network inference
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We stop the process if the difference between the two most recent lower
+ bounds are negligible(~1e-8) or in other words when we have convergence.
+\end_layout
+
+\begin_layout Standard
+For now, I am fixing the model parameters 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $\eta$
+\end_inset
+
+ to their true values.
+ But we need to also derive these in the M-step, where we optimize the lower
+ bound fixing the variational parameters.
+ For now I am skipping this part.
+\end_layout
+
+\begin_layout Standard
+After the convergence I estimate them as below:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\hat{\beta}{}_{k,k}=\dfrac{\tau_{0,k}}{\tau_{0,k}+\tau_{1,k}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\hat{\theta}_{a,k}=\dfrac{\gamma_{a,k}}{\sum_{l}\gamma_{a,l}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "networksonly"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
