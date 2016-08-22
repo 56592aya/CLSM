@@ -1,9 +1,13 @@
+#####################################################
+# COMPUTE ELBO FOR THE E-STEP
+#####################################################
 compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
                            eps,links,nonneighbors,alpha, gamma,
                            tau0, tau1, eta0, eta1){
     
     sum.abk.links=ELBO.sum.abk.links(phi.links, Elog.theta, Elog.B,eps,links)
-    sum.abk.nonlinks=ELBO.sum.abk.nonlinks(nonneighbors,phi.nonlinks,Elog.theta,Elog.B, eps)
+    sum.abk.nonlinks=ELBO.sum.abk.nonlinks(nonneighbors,phi.nonlinks,
+                                           Elog.theta,Elog.B, eps)
     sum.ak=ELBO.sum.ak(alpha, gamma, Elog.theta)
     sum.a = ELBO.sum.a(gamma, alpha)
     sum.k=ELBO.sum.k(Elog.B,tau0, tau1, eta0, eta1)
@@ -11,7 +15,9 @@ compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
 }
 
 
-
+#####################################################
+# ELBO SUMS OVER LINKS, and K
+#####################################################
 ELBO.sum.abk.links <- function(phi.links, Elog.theta, Elog.B,eps,links){
     sum.abk.links=0
     M=nrow(links)
@@ -30,7 +36,9 @@ ELBO.sum.abk.links <- function(phi.links, Elog.theta, Elog.B,eps,links){
     }
     return(sum.abk.links)
 }
-
+#####################################################
+# ELBO SUMS OVER NONLINKS and K
+#####################################################
 ELBO.sum.abk.nonlinks <- function(nonneighbors,phi.nonlinks,Elog.theta,Elog.B, eps){
     sum.abk.nonlinks=0
     N=nrow(phi.nonlinks)
@@ -55,6 +63,9 @@ ELBO.sum.abk.nonlinks <- function(nonneighbors,phi.nonlinks,Elog.theta,Elog.B, e
     return(sum.abk.nonlinks)
 }
 
+#####################################################
+# ELBO SUMS OVER INDIVIDUALS AND K
+#####################################################
 ELBO.sum.ak <- function(alpha, gamma, Elog.theta){
     N=nrow(gamma)
     K=ncol(gamma)
@@ -69,6 +80,9 @@ ELBO.sum.ak <- function(alpha, gamma, Elog.theta){
     return(sum.ak)
 }
 
+#####################################################
+# ELBO SUMS OVER INDIVIDUALS
+#####################################################
 ELBO.sum.a <- function(gamma, alpha){
     N=nrow(gamma)
     sum.a = 0
@@ -78,7 +92,9 @@ ELBO.sum.a <- function(gamma, alpha){
     return(sum.a)
 }
 
-
+#####################################################
+# ELBO SUMS OVER  K
+#####################################################
 ELBO.sum.k <- function(Elog.B,tau0, tau1, eta0, eta1){
     K=length(tau0)
     sum.k=0
@@ -90,6 +106,9 @@ ELBO.sum.k <- function(Elog.B,tau0, tau1, eta0, eta1){
     }
     return(sum.k)
 }
+#####################################################
+# COMPUTES ELBO FOR THE M-STEP
+#####################################################
 ###Compute.ELBO.M
 # elbo.m.alpha  <- function(alpha){
 #     compute.ELBO.E(phi.links=phi.links,phi.nonlinks=phi.nonlinks,

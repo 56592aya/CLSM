@@ -1,4 +1,6 @@
-
+#####################################################
+# INITIALIZING THE LOCAL VARIATIONAL PARAMETERS
+#####################################################
 local.init <- function(links,K,phi.links, neighbors){
     N=length(neighbors)
     phi.links=init.phi.links(links,K)
@@ -8,7 +10,9 @@ local.init <- function(links,K,phi.links, neighbors){
     return(phi)
     
 }
-
+#####################################################
+# INITIALIZING VARIATIONAL PHI FOR LINKS
+#####################################################
 init.phi.links <- function(links, K){
     ####Only M by K matrix of M links by K communities
     M=nrow(links)
@@ -22,7 +26,9 @@ init.phi.links <- function(links, K){
     return(phi.links)
 }
 
-
+#####################################################
+# INITIALIZING VARIATIONAL PHI FOR NONLINKS
+#####################################################
 init.phi.nonlinks <- function(N, K,phi.links, neighbors){
     #phi.nonlinks=data.frame(matrix(0,nrow=N,ncol=K))
     phi.nonlinks <- phi.nonlinks.update(phi.links, neighbors)

@@ -1,3 +1,6 @@
+#####################################################
+# UPDATE FOR THE PHI's WHEN THERE IS A LINK
+#####################################################
 phi.links.update <- function(links, Elog.theta,Elog.B) {
     K = ncol(Elog.theta)
     M = nrow(links)
@@ -15,6 +18,10 @@ phi.links.update <- function(links, Elog.theta,Elog.B) {
     update <- normalize.matrix.by.margin(update, margin = 1)
     return(update)
 }
+
+#####################################################
+# UPDATE FOR THE PHI's WHEN THERE IS NO LINK
+#####################################################
 phi.nonlinks.update <- function(phi.links,neighbors) {
     N = length(neighbors)
     K = ncol(phi.links)-2

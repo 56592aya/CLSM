@@ -1,3 +1,6 @@
+#####################################################
+# INITIALIZING VARIATIONAL GLOBAL PARAMETERS ALGO 1:DOES NOT WORK
+#####################################################
 global.init <- function(adj.matrix, links, top.r=5, K.M, eta_0, eta_1, alpha_val){
     N=dim(adj.matrix)[1]
     start.K=N
@@ -29,9 +32,12 @@ global.init <- function(adj.matrix, links, top.r=5, K.M, eta_0, eta_1, alpha_val
     }
 }
 
+
+#####################################################
+# INITIALIZING GLOBAL VARIATIONAL PARAMETERS:ALGO2(THIS IS IN USE NOW)
+#####################################################
 global.random.init <- function(adj.matrix, model.K,eps, ...){
     N = dim(adj.matrix)[1]
-    #gamma=matrix(runif(N*model.K),nrow=N, ncol=model.K)
     gamma=matrix(0, nrow=N, ncol=model.K)
     for(a in 1:N){
         for(k in 1:model.K){

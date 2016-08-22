@@ -1,3 +1,6 @@
+#####################################################
+# UPDATE FOR GAMMA VARIATIONAL PARAMETER
+#####################################################
 gamma.update <-function(alpha,phi.links,phi.nonlinks,neighbors) {
         N = nrow(phi.nonlinks)
         K = length(alpha)
@@ -15,6 +18,9 @@ gamma.update <-function(alpha,phi.links,phi.nonlinks,neighbors) {
         return(res)
     }
 
+#####################################################
+# UPDATE FOR THE GAMMA IN THE ANNEALING PHASE(RESCALED)
+#####################################################
 gamma.update.initial <- function(alpha,phi.links,phi.nonlinks,neighbors){
     N = nrow(phi.nonlinks)
     K = length(alpha)
@@ -36,6 +42,10 @@ gamma.update.initial <- function(alpha,phi.links,phi.nonlinks,neighbors){
     }
     return(res)
 }
+
+#####################################################
+# UPDATE FOR VARIATIONAL PARAMETER TAU0
+#####################################################
 tau0.update <- function(phi.links, eta0) {
     K = ncol(phi.links) - 2
     res = rep(0, K)
@@ -45,6 +55,9 @@ tau0.update <- function(phi.links, eta0) {
     return(res)
 }
 
+#####################################################
+# UPDATE FOR VARIATIONAL PARAMETER TAU1
+#####################################################
 tau1.update <- function(phi.nonlinks, links, eta1) {
     N = nrow(phi.nonlinks)
     K = ncol(phi.nonlinks)
