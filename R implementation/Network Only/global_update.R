@@ -11,7 +11,7 @@ gamma.update <-function(alpha,phi.links,phi.nonlinks,neighbors) {
             c[a] = (N - 1 - (deg.a))##number of nonlinks
             for (k in 1:K) {
                 res[a, k] = (alpha[k] +sum(
-                    phi.links[(phi.links$X1 == a)|(phi.links$X2 == a), k]) +
+                    phi.links[((phi.links$X1 == a)|(phi.links$X2 == a)), k]) +
                                    c[a] * as.double(phi.nonlinks[a, k]))
             }
         }
@@ -80,6 +80,6 @@ tau1.update <- function(phi.nonlinks, links, eta1) {
         res[k] = eta1 + sum.0[k] - sum.1[k]
     }
     
-    res[which(res < 0)] = 1
+    #res[which(res < 0)] = 1
     return(res)
 }

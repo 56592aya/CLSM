@@ -62,6 +62,7 @@ phi.nonlinks=phi[[2]]
 #First ITER values
 Elog.theta=Elogp.dir(gamma)
 Elog.B=Elogp.beta(tau0 = tau0, tau1 = tau1)
+
 # STORAGE FOR ELBO AND SETTING UP CONSTANTS
 #FIRST_CONVERGED=FALSE
 #FIRST_MAX_ITER=1000
@@ -80,19 +81,16 @@ while(!(CONVERGED) || !(iteration>MAX_ITER)){
     #####################################################
     # LOCAL UPDATES
     #####################################################
-    phi.links[,1:K] = phi.links.update(links=links, Elog.theta=Elog.theta,
-                                       Elog.B=Elog.B)
+    phi.links[,1:K] = phi.links.update(links=links, Elog.theta=Elog.theta,Elog.B=Elog.B)
     phi.nonlinks=phi.nonlinks.update(phi.links,neighbors)
     #TEST:rowSums(phi.links[,-c(ncol(phi.links)-1, ncol(phi.links))])
     #TEST:rowSums(phi.nonlinks)
-    
     #####################################################
     #GLOBAL UPDATE
     #####################################################
     gamma=gamma.update(alpha,phi.links,phi.nonlinks,neighbors)
     tau0=tau0.update(phi.links,eta0)
     tau1=tau1.update(phi.nonlinks,links,eta1)
-    
     #####################################################
     #WRITING TO FILE
     #####################################################
@@ -103,11 +101,11 @@ while(!(CONVERGED) || !(iteration>MAX_ITER)){
     # Update for the next ITER
     Elog.theta=Elogp.dir(gamma)
     Elog.B=Elogp.beta(tau0 = tau0, tau1 = tau1)
-    
+    #sort(ELBO, decreasing = F) == ELBO
     #####################################################
     #CHECKING CONVERGENCE
     #####################################################
-    if(iteration %% 10 ==0){
+    if(iteration %% 2 ==0){
         cat("computing ELBO...\n")
         ELBO[ELBO.count]=
             compute.ELBO.E(phi.links=phi.links,phi.nonlinks=phi.nonlinks,

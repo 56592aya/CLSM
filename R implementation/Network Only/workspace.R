@@ -5,9 +5,10 @@ source("generic_funcs.R")
 source("genr_network.R")
 library(fields)
 
-N=50;K.true=5
-eta0 = 10.0;eta1 = 1.0
-alpha=rep(1.0/K.true, K.true)
+N=50;K.true=3
+eta0 = 10;eta1 = 1.0
+#alpha=rep(1.0/K.true, K.true)
+alpha=rep(0.01, K.true)
 
 net=genr_network(alpha = alpha, N = N, eta0 = eta0, eta1 = eta1)
 adj.matrix=net$net
@@ -27,6 +28,6 @@ image(z=adj.matrix[1:N,N:1],
 image(z=net$Beta[1:K.true,K.true:1],
       col = grey(seq(1, 0, length = 256)), axes=F, main="Compatibility matrix")
 #alpha
-barplot(alpha, names.arg = seq(1,K.true, by=1),
-        main="Alpha for each community")
+# barplot(alpha, names.arg = seq(1,K.true, by=1),
+#         main="Alpha for each community")
 

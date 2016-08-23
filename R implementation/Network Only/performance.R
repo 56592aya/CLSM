@@ -1,7 +1,7 @@
 #source("mmsb_inference.R")
 beta.estimate = estimate.beta(tau0, tau1)
 theta.estimate=estimate.theta(gamma)
-
+diag(net$Beta)
 
 test.Y=matrix(0,nrow=N, ncol=N)
 test.Z = array(0, dim=c(N,N,K))
@@ -47,6 +47,6 @@ image(z=net$Beta[1:K.true,K.true:1],
 
 x=rbind(get.links(test.Y), links)
 y=rbind(get.nonlinks(test.Y), nonlinks)
-##counting the correct predictions
+##accuracy of link and non link prediction
 (nrow(unique(x))+nrow(unique(y)))/(nrow(x)+nrow(y))
 
