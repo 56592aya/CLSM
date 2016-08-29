@@ -1,6 +1,3 @@
-#####################################################
-# ANNEALING FOR THE GAMMA
-#####################################################
 initial.update <- function(FIRST_CONVERGED, FIRST_MAX_ITER, K, phi.links,
                            phi.nonlinks, links, nonlinks, 
                            neighbors, gamma, alpha, eta0, eta1, 

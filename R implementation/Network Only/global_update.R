@@ -1,6 +1,3 @@
-#####################################################
-# UPDATE FOR GAMMA VARIATIONAL PARAMETER
-#####################################################
 gamma.update <-function(alpha,phi.links,phi.nonlinks,neighbors) {
         N = nrow(phi.nonlinks)
         K = length(alpha)
@@ -11,16 +8,13 @@ gamma.update <-function(alpha,phi.links,phi.nonlinks,neighbors) {
             c[a] = (N - 1 - (deg.a))##number of nonlinks
             for (k in 1:K) {
                 res[a, k] = (alpha[k] +sum(
-                    phi.links[((phi.links$X1 == a)|(phi.links$X2 == a)), k]) +
+                    phi.links[(phi.links$X1 == a)|(phi.links$X2 == a), k]) +
                                    c[a] * as.double(phi.nonlinks[a, k]))
             }
         }
         return(res)
     }
 
-#####################################################
-# UPDATE FOR THE GAMMA IN THE ANNEALING PHASE(RESCALED)
-#####################################################
 gamma.update.initial <- function(alpha,phi.links,phi.nonlinks,neighbors){
     N = nrow(phi.nonlinks)
     K = length(alpha)
@@ -42,10 +36,6 @@ gamma.update.initial <- function(alpha,phi.links,phi.nonlinks,neighbors){
     }
     return(res)
 }
-
-#####################################################
-# UPDATE FOR VARIATIONAL PARAMETER TAU0
-#####################################################
 tau0.update <- function(phi.links, eta0) {
     K = ncol(phi.links) - 2
     res = rep(0, K)
@@ -55,9 +45,6 @@ tau0.update <- function(phi.links, eta0) {
     return(res)
 }
 
-#####################################################
-# UPDATE FOR VARIATIONAL PARAMETER TAU1
-#####################################################
 tau1.update <- function(phi.nonlinks, links, eta1) {
     N = nrow(phi.nonlinks)
     K = ncol(phi.nonlinks)
@@ -80,6 +67,6 @@ tau1.update <- function(phi.nonlinks, links, eta1) {
         res[k] = eta1 + sum.0[k] - sum.1[k]
     }
     
-    #res[which(res < 0)] = 1
+    res[which(res < 0)] = 1
     return(res)
 }

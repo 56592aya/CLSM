@@ -1,23 +1,21 @@
-#####################################################
-# INITIALIZING VARIATIONAL GLOBAL PARAMETERS ALGO 1:DOES NOT WORK
-#####################################################
 global.init <- function(adj.matrix, links, top.r=5, K.M, eta_0, eta_1, alpha_val){
     N=dim(adj.matrix)[1]
-    
     start.K=N
-    gamma=matrix(runif(N*start.K), nrow=N, ncol=start.K)
-    for(a in 1:N){
-        gamma[a,a]=gamma[a,a]+.5
-    }
+    gamma=matrix(0, nrow=N, ncol=start.K)
     gamma.comm=rep(0, N)
-    
+    for(a in 1:N){
+        gamma[a,]=runif(start.K)
+        max.idx=argmax(gamma[a,])
+        if(max.idx != a)
+            tmp=gamma[a,a]
+            gamma[a,a]=gamma[a,max.idx]
+            gamma[a,max.idx]=tmp
+    }
     topR <- get.topR.communities(gamma, top.r)
     top.c.idx=topR[[1]]
     top.c.val=topR[[2]]
-    
     for(iter in 1:round(log(N))){
         for(m in 1:nrow(links)){
-            cat(paste("ITER ",iter,":link ", m, "\n"))
             for(t in top.c.idx[links$X2[m]]){
                 gamma[links$X1[m],t]=gamma[links$X1[m],t]+1
             }
@@ -29,38 +27,11 @@ global.init <- function(adj.matrix, links, top.r=5, K.M, eta_0, eta_1, alpha_val
             top.c.val=topR[[2]]
         }
     }
-    communities=list()
-    for(k in 1:start.K){
-        communities[[k]]=c(0)
-    }
-    threshold=.5
-    for(m in 1:nrow(links)){
-        for(k in 1:start.K){
-            num=gamma[links$X1[m],k]*gamma[links$X2[m],k]
-            den=sum(gamma[links$X1[m],]*gamma[links$X2[m],])
-            link.prob=num/den
-            if(link.prob > threshold){
-                communities[[k]]=c(communities[[k]],links$X1[m],links$X2[m])
-            }
-        }
-        cat(paste("link:", m, "\n"))
-    }
-    for(k in 1:start.K){
-        communities[[k]]=unique(communities[[k]])
-    }
-    for(k in 1:start.K){
-        if(length(communities[[k]]) > 1){
-            cat(paste("k:", k, "====> "))
-            cat(communities[[k]])
-            cat("\n\n")
-        }
-    }
 }
-#####################################################
-# INITIALIZING GLOBAL VARIATIONAL PARAMETERS:ALGO2(THIS IS IN USE NOW)
-#####################################################
+
 global.random.init <- function(adj.matrix, model.K,eps, ...){
     N = dim(adj.matrix)[1]
+    #gamma=matrix(runif(N*model.K),nrow=N, ncol=model.K)
     gamma=matrix(0, nrow=N, ncol=model.K)
     for(a in 1:N){
         for(k in 1:model.K){

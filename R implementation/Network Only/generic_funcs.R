@@ -1,22 +1,13 @@
-#####################################################
-# GETTING A VECTOR OF FRIENDS OF A PERSON
-#####################################################
 get.neighbors <- function(adj.matrix,a){
-    return(which(adj.matrix[a,]==1))
+  return(which(adj.matrix[a,]==1))
+    
 }
 
-#####################################################
-# GETTING THE VECTOR OF NON FRIENDS OF A PERSON
-#####################################################
 get.nonneighbors <- function(adj.matrix,a){
     neigh.a = get.neighbors(adj.matrix,a)
     x=(1:N)[-c(a,neigh.a)]
     return(x)
 }
-
-#####################################################
-# GETTING THE UNIQUE LINKS IN THE NETWORK
-#####################################################
 get.links <- function(adj.matrix){
     x=adj.matrix
     x=(which(x==1,arr.ind = T))
@@ -26,10 +17,6 @@ get.links <- function(adj.matrix){
     names(x)=c('X1','X2')
     return(x)
 }
-
-#####################################################
-# GETTING THE UNIQUE NONLINKS OF THE NETWORK
-#####################################################
 get.nonlinks <- function(adj.matrix){
     x=adj.matrix
     diag(x)=1
@@ -41,9 +28,6 @@ get.nonlinks <- function(adj.matrix){
     return(x)
 }
 
-#####################################################
-# VARIATIONAL EXPECTATION OF LOG-DIRICHLET PARAMETER
-#####################################################
 Elogp.dir <- function(matrix){
     N=nrow(matrix)
     K=ncol(matrix)
@@ -55,29 +39,7 @@ Elogp.dir <- function(matrix){
     return(res)
 }
 
-f.digamma <- function(x){
-        res=0;
-        x=x+6;
-        res=1/(x*x);
-        res=(((0.004166666666667*res-0.003968253986254)*res+
-                0.008333333333333)*res-0.083333333333333)*res;
-        res=res+log(x)-0.5/x-1/(x-1)-1/(x-2)-1/(x-3)-1/(x-4)-1/(x-5)-1/(x-6);
-        return(res);
-}
 
-f.lgamma <- function(x){
-    z=1/(x*x);
-    
-    x=x+6;
-    z=(((-0.000595238095238*z+0.000793650793651)
-        *z-0.002777777777778)*z+0.083333333333333)/x;
-    z=(x-0.5)*log(x)-x+0.918938533204673+z-log(x-1)-
-        log(x-2)-log(x-3)-log(x-4)-log(x-5)-log(x-6);
-    return(z);
-}
-#####################################################
-# VARIATIONAL EXPECTATION OF LOG-BETA PARAMETER
-#####################################################
 Elogp.beta <- function(tau0, tau1){
     res=matrix(nrow=length(tau0), ncol=2)
     K=length(tau0)
@@ -87,10 +49,6 @@ Elogp.beta <- function(tau0, tau1){
     }
     return(res)
 }
-
-#####################################################
-# ESTIMATING BETA FROM TAU:NEED TO RECHECK
-#####################################################
 estimate.beta <- function(tau0, tau1){
     K=length(tau0)
     beta.rate= rep(0, K)
@@ -102,9 +60,6 @@ estimate.beta <- function(tau0, tau1){
     return(beta.rate)
 }
     
-#####################################################
-# ESTIMATE THETA FROM GAMMA:NEED TO RECHECK
-#####################################################
 estimate.theta <- function(gamma){
     theta=matrix(0, nrow=N, ncol=K)
     for(a in 1:N){
@@ -119,9 +74,6 @@ estimate.theta <- function(gamma){
     return(theta)
 }
 
-#####################################################
-# GETTING THE TOP R COMMUNITIES OF A PERSON
-#####################################################
 get.topR.communities <- function(gamma, top.r){
     top.c.val = matrix(0, nrow=nrow(gamma), ncol=top.r)
     top.c.idx = matrix(0, nrow=nrow(gamma), ncol=top.r)
@@ -134,9 +86,6 @@ get.topR.communities <- function(gamma, top.r){
     return(list(top.c.idx, top.c.val))
 }
 
-#####################################################
-# GETTING THE ROW NUMBER OF A LINK WITH A SPECIFIED ENDS
-#####################################################
 get.link.row <- function(links, a, b){
     x=0
     for(m in 1:nrow(links)){
@@ -149,24 +98,16 @@ get.link.row <- function(links, a, b){
     return(x)
 }
 
-#####################################################
-# NORMALIZE A DATA FRAME BY MARGIN TO SUM TO 1.(1=ROW, 2=COL)
-#####################################################
 normalize.df.by.margin <- function(df, margin){
     x = as.data.frame(normalize.matrix.by.margin(as.matrix(df), margin = margin))
     return(x)
 }
 
-#####################################################
-# NORMALIZE A MATRIX BY MARGIN TO SUM TO 1.(1=ROW, 2=COL)
-#####################################################
 normalize.matrix.by.margin <- function(matrix, margin){
     return(prop.table(x=matrix, margin = margin))
 }
 
-#####################################################
-# GET ALL NEIGHBORS 
-#####################################################
+
 get.static.neighbors <- function(adj.matrix){
     N=dim(adj.matrix)[1]
     neighbors =list()
@@ -178,9 +119,6 @@ get.static.neighbors <- function(adj.matrix){
     return(neighbors)
 }
 
-#####################################################
-# GET ALL NONNEIGHBORS
-#####################################################
 get.static.nonneighbors <- function(adj.matrix){
     N=dim(adj.matrix)[1]
     nonneighbors =list()
@@ -192,9 +130,19 @@ get.static.nonneighbors <- function(adj.matrix){
     return(nonneighbors)
 }
 
-#####################################################
-# FIND THE ARGMAX OF A VECTOR
-#####################################################
+#given log(a), log(b), return log(a+b)
+log.sum <- function (log.a, log.b)
+{
+    v
+    if (log.a < log.b){
+        v = log.b+log(1 + exp(log.a-log.b));
+    }
+    else{
+        v = log.a+log(1 + exp(log.b-log.a));
+    }
+    return(v)
+}
+
 argmax <- function(x){
     N=length(x)
     max = x[1];
@@ -210,9 +158,6 @@ argmax <- function(x){
     return(argmax);
 }
 
-#####################################################
-# SORT A MATRIX BY ITS ARGMAX POSITIONS(ACTUALLY IS ARGMIN)
-#####################################################
 sort.by.argmax <-function(arr){
     amax=apply(arr, 1, argmax)
     arr0 = matrix(0, nrow=nrow(arr), ncol=ncol(arr))
