@@ -2,12 +2,57 @@ compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
                            eps,links,nonneighbors,alpha, gamma,
                            tau0, tau1, eta0, eta1){
     
-    sum.abk.links=ELBO.sum.abk.links(phi.links, Elog.theta, Elog.B,eps,links)
-    sum.abk.nonlinks=ELBO.sum.abk.nonlinks(nonneighbors,phi.nonlinks,Elog.theta,Elog.B, eps)
-    sum.ak=ELBO.sum.ak(alpha, gamma, Elog.theta)
-    sum.a = ELBO.sum.a(gamma, alpha)
-    sum.k=ELBO.sum.k(Elog.B,tau0, tau1, eta0, eta1)
-    return(sum.abk.links+sum.abk.nonlinks+sum.ak+sum.a+sum.k)
+    # sum.abk.links=ELBO.sum.abk.links(phi.links, Elog.theta, Elog.B,eps,links)
+    # sum.abk.nonlinks=ELBO.sum.abk.nonlinks(nonneighbors,phi.nonlinks,Elog.theta,Elog.B, eps)
+    # sum.ak=ELBO.sum.ak(alpha, gamma, Elog.theta)
+    # sum.a = ELBO.sum.a(gamma, alpha)
+    # sum.k=ELBO.sum.k(Elog.B,tau0, tau1, eta0, eta1)
+    log.eps=log(eps)
+    log.1.minus.eps=log1p(-eps)
+    s = 0
+    for(m in 1:M){
+        for(k in 1:K){
+            x=phi.links[m,k]
+            # if(phi.links[m,k] < 10^-8){
+            #   x=10^-8  
+            # }
+            s = s+x*(Elog.B[k,1]) + (1-x)*log.eps+
+                x*(Elog.theta[links$X1[m],k]+Elog.theta[links$X2[m],k])-
+                x*log(x)
+        }
+    }
+    for(mn in nrow(nonlinks)){
+        for(k in 1:K){
+            x1=phi.nonlinks[nonlinks$X1[mn],k]
+            x2=phi.nonlinks[nonlinks$X2[mn],k]
+            # if(phi.nonlinks[nonlinks$X1[mn],k] < 10^-8){
+            #     x1=10^-8  
+            # }
+            # if(phi.nonlinks[nonlinks$X2[mn],k] < 10^-8){
+            #     x2=10^-8  
+            # }
+            s = s + x1*x2*Elog.B[k,2] + (1-x1*x2)*log.1.minus.eps+
+                x1*Elog.theta[nonlinks$X1[mn],k]-x1*log(x1)+
+                x2*Elog.theta[nonlinks$X2[mn],k]-x2*log(x2)
+        }
+    }
+    for(a in 1:N){
+        s = s+lgamma(sum(alpha))-lgamma(sum(gamma[a,]))
+    }
+    for(a in 1:N){
+        for(k in 1:K){
+            s = s-lgamma(alpha[k])+(alpha[k]-1)*Elog.theta[a,k]+
+                lgamma(gamma[a,k])-(gamma[a,k]-1)*Elog.theta[a,k]
+        }
+    }
+    for(k in 1:K){
+        s = s+lgamma(eta0+eta1)-lgamma(eta0)-lgamma(eta1)+(eta0-1)*Elog.B[k,1]+
+            (eta1-1)*Elog.B[k,2]-lgamma(tau0[k]+tau1[k])+
+            lgamma(tau0[k])+lgamma(tau1[k])-(tau0[k]-1)*Elog.B[k,1]-
+            (tau1[k]-1)*Elog.B[k,2]
+    }
+    return(s)
+    #return(sum.abk.links+sum.abk.nonlinks+sum.ak+sum.a+sum.k)
 }
 
 

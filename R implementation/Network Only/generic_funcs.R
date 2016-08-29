@@ -172,3 +172,15 @@ sort.by.argmax <-function(arr){
     }
     return(arr0)
 }
+###RETURNS LOG(A+B) GIVEN LOG A AND LOG B
+log_sum <- function(log_a, log_b)
+{
+    v=0   
+    if (log_a < log_b) {
+        v = log_b+log(1 + exp(log_a-log_b));
+    }
+    else {
+        v = log_a+log(1 + exp(log_b-log_a));
+    }
+    return(v);
+}

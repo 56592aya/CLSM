@@ -20,14 +20,6 @@ nonneighbors=get.static.nonneighbors(adj.matrix)
 # get all the undirected missing edges
 nonlinks=get.nonlinks(adj.matrix)
 
-#Variational Inference constants, and memory
-#FIRST_CONVERGED=FALSE
-#FIRST_MAX_ITER=1000
-#MAX_ITER=65536
-CONVERGED=FALSE;  MAX_ITER=1000;  iteration=1
-ELBO=c(0)
-ELBO.count = 2 #start from 
-min.threshold = 1e-8
 
 
 #INITIALIZATIONS
@@ -45,6 +37,7 @@ gamma=g.init$gamma.init
 beta=g.init$beta.init
 tau0=g.init$tau0.init
 tau1=g.init$tau1.init
+
 #LOCAL VARIATIONAL PARAMETER INIT
 phi=local.init(links,K,phi.links, neighbors)
 phi.links=phi[[1]]
@@ -60,36 +53,84 @@ phi.nonlinks=phi[[2]]
 
 ###MAIN UPDATE
 ##CONVERGENCE AND UDATE LOOP(VI)
+#Variational Inference constants, and memory
+CONVERGED=FALSE;  MAX_ITER=1000;  iteration=1
+ELBO=c(0)
+ELBO.count = 2 #start from 
+min.threshold = 1e-8
+####To START WITH FOR FIRST ROUND
 Elog.theta=Elogp.dir(gamma)
 Elog.B=Elogp.beta(tau0 = tau0, tau1 = tau1)
-iteration=1
-ELBO.count = 2
-min.threshold = 1e-8
-ELBO=c(0)
+M=nrow(links)
 while(!(CONVERGED) || !(iteration>MAX_ITER)){
     ####INITIAL PHASE
     cat(paste("iteration ",iteration,":\n"))
-    #####REAL UPDATES    
-    phi.links[,1:K] = phi.links.update(links=links, Elog.theta=Elog.theta,Elog.B=Elog.B)
-    phi.nonlinks=phi.nonlinks.update(phi.links,neighbors)
-    #TEST:rowSums(phi.links[,-c(ncol(phi.links)-1, ncol(phi.links))])
+    #####REAL UPDATES
+    log.phi =matrix(0, nrow=M, ncol=K)
+    for(m in 1:M){
+        sum.log.phi.link = 0
+        for(k in 1:K){
+            log.phi[m,k] = Elog.theta[links$X1[m],k]+
+                Elog.theta[links$X2[m],k]+
+                Elog.B[k,1]
+            if(k > 1){
+                sum.log.phi.link = log_sum(sum.log.phi.link, log.phi[m,k])
+            }else{
+                sum.log.phi.link = log.phi[m,k]
+            }
+        }
+        for(k in 1:K){
+            phi.links[m,k] = exp(log.phi[m,k] - sum.log.phi.link)
+        }
+    }
+    
+    #TEST:rowSums(phi.links[,1:K])
+    sum.phi.link.a = matrix(0, nrow=N, ncol=K)
+    for(a in 1:N){
+        deg.a = length(neighbors[[a]])
+        for(k in 1:K){
+            sum.phi.link.a[a,k] <- sum(phi.links[(links$X1==a) | (links$X2==a),k])
+            phi.nonlinks[a,k] = sum.phi.link.a[a,k]/deg.a
+        }
+    }
+    rowSums(phi.nonlinks)
     #TEST:rowSums(phi.nonlinks)
+    
     #GLOBAL UPDATE
-    gamma=gamma.update(alpha,phi.links,phi.nonlinks,neighbors)
-    tau0=tau0.update(phi.links,eta0)
-    tau1=tau1.update(phi.nonlinks,links,eta1)
-    #WRITING TO FILE
-    # fileConn<-file(paste(iteration, "--output.txt"))
-    # writeLines(gamma[1,], fileConn)
-    # close(fileConn)
+    for(a in 1:N){
+        deg.a=length(neighbors[[a]])
+        for(k in 1:K){
+            gamma[a,k] = alpha[k] + 
+                deg.a*phi.nonlinks[a,k] +
+                (N-1-deg.a)*phi.nonlinks[a,k]
+        }
+    }
+    for(k in 1:K){
+        tau0[k] = eta0 + sum(phi.links[,k])
+    }
+    s1 = rep(0, K)
+    s2 = rep(0, K)
+    s3 = rep(0, K)
+    for(k in 1:K){
+        s1[k] = sum(phi.nonlinks[,k])
+        s2[k] = sum(phi.nonlinks[,k]*phi.nonlinks[,k])
+    }
+    for(m in 1:M){
+        for(k in 1:K){
+            s3[k] = s3[k]+phi.nonlinks[links$X1[m],k]*phi.nonlinks[links$X2[m],k]
+        }
+    }
+    tau1 = eta1 + (s1*s1 - s2)/2 - s3
     Elog.theta=Elogp.dir(gamma)
     Elog.B=Elogp.beta(tau0 = tau0, tau1 = tau1)
     #CHECKING CONVERGENCE
-    if(iteration %% 10 ==0){
+    if(iteration %% 2 ==0){
         cat("computing ELBO...\n")
         ELBO[ELBO.count]=
-            compute.ELBO.E(phi.links=phi.links,phi.nonlinks=phi.nonlinks, Elog.theta=Elog.theta, Elog.B=Elog.B,
-                           eps=epsilon,links=links,nonneighbors=nonneighbors,alpha=alpha, gamma=gamma,
+            compute.ELBO.E(phi.links=phi.links,phi.nonlinks=phi.nonlinks, 
+                           Elog.theta=Elog.theta, Elog.B=Elog.B,
+                           eps=epsilon,links=links,nonneighbors=nonneighbors,
+                           alpha=alpha, gamma=gamma,
                            tau0=tau0, tau1=tau1, eta0=eta0, eta1=eta1)
         cat(paste("ELBO is ",ELBO[ELBO.count],"\n"))
         if(abs(ELBO[ELBO.count]-ELBO[ELBO.count-1]) < min.threshold){
@@ -109,17 +150,18 @@ ELBO=ELBO[-1] #throws away the 0 in the beginning
 #PLOT OF THE ELBO
 plot(1:length(ELBO),ELBO,type = 'l') # ELBO
 
+sort(ELBO,decreasing = F) == ELBO
 
 ######
-library(maxLik)
-elbo.m.alpha  <- function(alpha){
-    compute.ELBO.E(phi.links=phi.links,phi.nonlinks=phi.nonlinks,
-                   Elog.theta=Elog.theta, Elog.B=Elog.B,
-                   eps=epsilon,links=links,
-                   nonneighbors=nonneighbors,alpha, gamma=gamma,
-                   tau0=tau0, tau1=tau1, eta0=eta0, eta1=eta1)
-}
-x=maxLik(logLik = elbo.m.alpha, start = rep(0.1, K), method = "nr")
-x$maximum
-alpha=x$estimate
+# library(maxLik)
+# elbo.m.alpha  <- function(alpha){
+#     compute.ELBO.E(phi.links=phi.links,phi.nonlinks=phi.nonlinks,
+#                    Elog.theta=Elog.theta, Elog.B=Elog.B,
+#                    eps=epsilon,links=links,
+#                    nonneighbors=nonneighbors,alpha, gamma=gamma,
+#                    tau0=tau0, tau1=tau1, eta0=eta0, eta1=eta1)
+# }
+# x=maxLik(logLik = elbo.m.alpha, start = rep(0.1, K), method = "nr")
+# x$maximum
+# alpha=x$estimate
 

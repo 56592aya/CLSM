@@ -5,9 +5,9 @@ source("generic_funcs.R")
 source("genr_network.R")
 library(fields)
 
-N=50;K.true=5
+N=50;K.true=3
 eta0 = 10.0;eta1 = 1.0
-alpha=rep(1.0/K.true, K.true)
+alpha=rep(0.01, K.true)
 
 net=genr_network(alpha = alpha, N = N, eta0 = eta0, eta1 = eta1)
 adj.matrix=net$net
