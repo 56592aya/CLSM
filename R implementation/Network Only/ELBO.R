@@ -2,25 +2,20 @@ compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
                            eps,links,nonneighbors,alpha, gamma,
                            tau0, tau1, eta0, eta1){
     
-    # sum.abk.links=ELBO.sum.abk.links(phi.links, Elog.theta, Elog.B,eps,links)
-    # sum.abk.nonlinks=ELBO.sum.abk.nonlinks(nonneighbors,phi.nonlinks,Elog.theta,Elog.B, eps)
-    # sum.ak=ELBO.sum.ak(alpha, gamma, Elog.theta)
-    # sum.a = ELBO.sum.a(gamma, alpha)
-    # sum.k=ELBO.sum.k(Elog.B,tau0, tau1, eta0, eta1)
     log.eps=log(eps)
     log.1.minus.eps=log1p(-eps)
     s = 0
     for(m in 1:M){
         for(k in 1:K){
             x=phi.links[m,k]
+            x.norm.const = sum(phi.links[m,])
             # if(phi.links[m,k] < 10^-8){
             #   x=10^-8  
             # }
-            s = s+x*(Elog.B[k,1]) + (1-x)*log.eps+
-                x*(Elog.theta[links$X1[m],k]+Elog.theta[links$X2[m],k])-
-                x*log(x)
+            s = s + x*(log(x)*(x.norm.const-1)-log.eps)+log.eps
         }
     }
+    cat(paste("1:",s, "\n"))
     for(mn in nrow(nonlinks)){
         for(k in 1:K){
             x1=phi.nonlinks[nonlinks$X1[mn],k]
@@ -31,125 +26,59 @@ compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
             # if(phi.nonlinks[nonlinks$X2[mn],k] < 10^-8){
             #     x2=10^-8  
             # }
-            s = s + x1*x2*Elog.B[k,2] + (1-x1*x2)*log.1.minus.eps+
-                x1*Elog.theta[nonlinks$X1[mn],k]-x1*log(x1)+
-                x2*Elog.theta[nonlinks$X2[mn],k]-x2*log(x2)
+            s = s + x1*x2*(Elog.B[k,2]-log.1.minus.eps)+
+                x1*(Elog.theta[nonlinks$X1[mn],k]-log(x1))+
+                x2*(Elog.theta[nonlinks$X2[mn],k]-log(x2))+
+                log.1.minus.eps
         }
     }
+    cat(paste("2:",s, "\n"))
     for(a in 1:N){
-        s = s+lgamma(sum(alpha))-lgamma(sum(gamma[a,]))
+        s = s-lgamma(sum(gamma[a,]))+lgamma(sum(alpha))
     }
+    cat(paste("3:",s, "\n"))
     for(a in 1:N){
         for(k in 1:K){
-            s = s-lgamma(alpha[k])+(alpha[k]-1)*Elog.theta[a,k]+
-                lgamma(gamma[a,k])-(gamma[a,k]-1)*Elog.theta[a,k]
+            s = s-lgamma(alpha[k])+(alpha[k]-gamma[a,k])*Elog.theta[a,k]+
+                lgamma(gamma[a,k])
         }
     }
+    cat(paste("4:",s, "\n"))
     for(k in 1:K){
-        s = s+lgamma(eta0+eta1)-lgamma(eta0)-lgamma(eta1)+(eta0-1)*Elog.B[k,1]+
-            (eta1-1)*Elog.B[k,2]-lgamma(tau0[k]+tau1[k])+
-            lgamma(tau0[k])+lgamma(tau1[k])-(tau0[k]-1)*Elog.B[k,1]-
-            (tau1[k]-1)*Elog.B[k,2]
+        s = s+(eta0-tau0[k])*Elog.B[k,1]+
+            (eta1-tau1[k])*Elog.B[k,2]-lgamma(tau0[k]+tau1[k])+
+            lgamma(tau0[k])+lgamma(tau1[k])+lgamma(eta0+eta1)-lgamma(eta0)-lgamma(eta1)
     }
+    cat(paste("5:",s, "\n"))
     return(s)
-    #return(sum.abk.links+sum.abk.nonlinks+sum.ak+sum.a+sum.k)
 }
 
-
-
-ELBO.sum.abk.links <- function(phi.links, Elog.theta, Elog.B,eps,links){
-    sum.abk.links=0
-    M=nrow(links)
-    K=ncol(phi.links)-2
-    for(m in 1:M){
-        for(k in 1:K){
-            phi.abkk=phi.links[m,k]
-            
-            sum.abk.links=sum.abk.links+
-                phi.abkk*Elog.B[k,1]+
-                        (1-phi.abkk)*log(eps)+
-                phi.abkk*(Elog.theta[links$X1[m],k]+
-                              Elog.theta[links$X2[m],k])-
-                phi.abkk*log(phi.abkk)
-        }
-    }
-    return(sum.abk.links)
-}
-
-ELBO.sum.abk.nonlinks <- function(nonneighbors,phi.nonlinks,Elog.theta,Elog.B, eps){
-    sum.abk.nonlinks=0
-    N=nrow(phi.nonlinks)
-    K=ncol(phi.nonlinks)
-    
+elbo.alpha <- function(alpha){
+    N=nrow(Elog.theta)
+    K=ncol(Elog.theta)
+    s.alpha = 0
     for(a in 1:N){
-        for(b in nonneighbors[[a]]){
-            for(k in 1:K){
-                    if(b>a){
-                        sum.abk.nonlinks=sum.abk.nonlinks+
-                            (phi.nonlinks[a,k]*phi.nonlinks[b,k]*
-                                 Elog.B[k,2])+
-                            (1-(phi.nonlinks[a,k]*phi.nonlinks[b,k]))*log1p(-eps)+
-                            (phi.nonlinks[a,k]*Elog.theta[a,k])-
-                            (phi.nonlinks[a,k]*log(phi.nonlinks[a,k]))+
-                            (phi.nonlinks[b,k]*Elog.theta[b,k])-
-                            (phi.nonlinks[b,k]*log(phi.nonlinks[b,k]))
-                    }
-            }
-        }
-    }    
-    return(sum.abk.nonlinks)
-}
-
-ELBO.sum.ak <- function(alpha, gamma, Elog.theta){
-    N=nrow(gamma)
-    K=ncol(gamma)
-    sum.ak = 0
+        s.alpha = s.alpha + lgamma(sum(alpha))
+    }
     for(a in 1:N){
         for(k in 1:K){
-            sum.ak = sum.ak+
-                -lgamma(alpha[k])+Elog.theta[a,k]*
-                (alpha[k]-gamma[a,k])+lgamma(gamma[a,k])
+            s.alpha = s.alpha-lgamma(alpha[k])+(alpha[k]-1)*Elog.theta[a,k]
         }
     }
-    return(sum.ak)
-}
 
-ELBO.sum.a <- function(gamma, alpha){
-    N=nrow(gamma)
-    sum.a = 0
-    for(a in 1:N){
-        sum.a = sum.a+lgamma(sum(alpha))-lgamma(sum(gamma[a,]))
-    }
-    return(sum.a)
+    return(s.alpha)
 }
-
-
-ELBO.sum.k <- function(Elog.B,tau0, tau1, eta0, eta1){
-    K=length(tau0)
-    sum.k=0
-    for(k in 1:K){
-        sum.k=sum.k+lgamma(eta0+eta1)-lgamma(eta0)-lgamma(eta1)-
-            lgamma(tau0[k]+tau1[k])+lgamma(tau0[k])+lgamma(tau1[k])+
-            Elog.B[k,1]*(eta0-tau0[k])+
-            Elog.B[k,2]*(eta1-tau1[k])
-    }
-    return(sum.k)
-}
-###Compute.ELBO.M
-# elbo.m.alpha  <- function(alpha){
-#     compute.ELBO.E(phi.links=phi.links,phi.nonlinks=phi.nonlinks,
-#                    Elog.theta=Elog.theta, Elog.B=Elog.B,
-#                    eps=epsilon,links=links,
-#                    nonneighbors=nonneighbors,alpha, gamma=gamma,
-#                    tau0=tau0, tau1=tau1, eta0=eta0, eta1=eta1)
-# }
-# elbo.m.eta <- function(eta){
-#     compute.ELBO.E(phi.links=phi.links,phi.nonlinks=phi.nonlinks,
-#                    Elog.theta=Elog.theta, Elog.B=Elog.B,
-#                    eps=epsilon,links=links,
-#                    nonneighbors=nonneighbors,alpha=alpha, gamma=gamma,
-#                    tau0=tau0, tau1=tau1, eta0,eta1)
-# }
-# x.eta=optim(par = c(10,1), fn = elbo.m.eta)
-# x.eta$par
-# x.eta$value
+# library(maxLik)
+# elbo.alpha(rep(0.05, K))
+# A = t(matrix(c(rep(1, K),rep(-1,K)), ncol=2))
+# A
+# B=c(0, 1)
+# 
+# x.alpha = maxNR(logLik = elbo.alpha, start = rep(0.1, K), method = "nr", constraints = list(ineqA=A, ineqB=B))
+# x=optim(rep(0.1, K), fn = elbo.alpha, lower = rep(0, K), upper = rep(1, K), method = "L-BFGS-B")
+# x$par
+# x.alpha$maximum
+# x.alpha$estimate
+# # x.eta=optim(par = c(10,1), fn = elbo.m.eta)
+# # x.eta$par
+# # x.eta$value
