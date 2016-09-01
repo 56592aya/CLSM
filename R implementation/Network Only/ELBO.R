@@ -12,7 +12,10 @@ compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
             # if(phi.links[m,k] < 10^-8){
             #   x=10^-8  
             # }
-            s = s + x*(log(x*x.norm.const)-log(x)-log.eps)+log.eps
+            #s = s + x*(log(x*x.norm.const)-log(x)-log.eps)+log.eps
+            s = s+x*(Elog.theta[links$X1[m],k]+
+                         Elog.theta[links$X2[m],k]+
+                         Elog.B[k,1]-log(x)-log.eps)+log.eps
         }
     }
     cat(paste("1:",s, "\n"))
