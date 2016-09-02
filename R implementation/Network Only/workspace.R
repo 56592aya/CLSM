@@ -5,7 +5,7 @@ source("generic_funcs.R")
 source("genr_network.R")
 library(fields)
 
-N=75;K.true=4
+N=75;K.true=5
 eta0 = 10.0;eta1 = 1.0
 alpha=rep(0.01, K.true)
 

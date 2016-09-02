@@ -13,7 +13,7 @@ source("setup_env.R")
 ###################
 #INITIALIZATIONS
 source("initializations.R")
-
+cc = 0
 ##################
 ###E-M
 # while((!EM_CONVERGED) || !(em_iter  > MAX_EM_ITER)){
@@ -107,9 +107,10 @@ source("initializations.R")
     }
     ELBO=ELBO[-1] #throws away the 0 in the beginning
     #PLOT OF THE ELBO
-    png(filename="ELBO.png")
+    png(filename=paste("PNG/ELBO_",cc,".png"))
     plot(1:length(ELBO),ELBO,type = 'l') # ELBO
     dev.off()
+    cc = cc +1
     ##This checks if there was a decrease
     sort(ELBO,decreasing = F) == ELBO
     # if(abs(ELBO[length(ELBO)]-ELBO[length(ELBO)-1]) == 0){
