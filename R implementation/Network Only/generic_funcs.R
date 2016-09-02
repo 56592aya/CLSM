@@ -177,10 +177,18 @@ log_sum <- function(log_a, log_b)
 {
     v=0   
     if (log_a < log_b) {
-        v = log_b+log(1 + exp(log_a-log_b));
+        if(exp(log_a-log_b) < 1e-10){
+            v = log_b+log1p(exp(log_a-log_b))
+        }else{
+            v = log_b+log(1 + exp(log_a-log_b))
+        }
     }
     else {
-        v = log_a+log(1 + exp(log_b-log_a));
+        if(exp(log_b-log_a)<1e-10){
+            v = log_a+log1p(exp(log_b-log_a))
+        }else{
+            v = log_a+log(1 + exp(log_b-log_a))
+        }
     }
     return(v);
 }
