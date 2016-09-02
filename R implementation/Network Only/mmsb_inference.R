@@ -8,6 +8,7 @@ if(!require(maxLik)){
 ###################
 # SET UP ENVIRONMENT
 ###################
+K=model.K
 source("setup_env.R")
 ###################
 #INITIALIZATIONS
