@@ -2,7 +2,7 @@ source("global_init.R")
 source("local_init.R")
 source("param_init.R")
 
-K = K.true###now just for testing
+
 #HYPERPARAM INIT
 hyper.param.init <- random.param.init(eta0=eta0, eta1=eta1, K=K, alpha)
 alpha=hyper.param.init$alpha
@@ -26,3 +26,4 @@ phi.nonlinks=phi[[2]]
 # To START WITH FOR FIRST ROUND
 Elog.theta=Elogp.dir(gamma)
 Elog.B=Elogp.beta(tau0 = tau0, tau1 = tau1)
+##For now

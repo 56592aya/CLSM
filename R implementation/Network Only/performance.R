@@ -4,6 +4,21 @@ theta.estimate=estimate.theta(gamma)
 diag(net$Beta)
 beta.estimate
 
+
+sink("estimated.txt")
+cat(c("Estimations\n"))
+cat("\n==========================================\n")
+cat(c("Estimated Beta\n"))
+cat(beta.estimate)
+cat("\n")
+cat(c("True Beta"))
+cat("\n")
+cat(c(diag(net$Beta)))
+cat("\n==========================================\n")
+sink()
+
+
+
 # test.Y=matrix(0,nrow=N, ncol=N)
 # test.Z = array(0, dim=c(N,N,K))
 test.beta = diag(beta.estimate)

@@ -1,5 +1,9 @@
 options(digits = 10)
 epsilon=1e-30
+# FOR NOW
+K=K.true
+alpha=rep(0.01, K)
+#
 # get list of neighbors for each individual
 neighbors = get.static.neighbors(adj.matrix)
 # get all the unique undirected edges
