@@ -1,0 +1,393 @@
+computing ELBO in e-step...
+ELBO is  -141213.66998285 
+-141213.67	ELBO has converged!!!
+RStudioGD 
+        2 
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[15]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[15]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[15]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[15]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
+All neighbors can now be statically accessed!
+All non-neighbors can now be statically accessed!
+phi.links are initialized!
+phi.nonlinks are initialized!
+to access use the format: phi.nonlinks[a,k]
+Local parameters phi are now initialized!
+e-step:iteration  1 :
+computing ELBO in e-step...
+ELBO is  NaN 
+RStudioGD 
+        2 
+logical(0)
+All neighbors can now be statically accessed!
+All non-neighbors can now be statically accessed!
+phi.links are initialized!
+phi.nonlinks are initialized!
+to access use the format: phi.nonlinks[a,k]
+Local parameters phi are now initialized!
+e-step:iteration  1 :
+computing ELBO in e-step...
+ELBO is  -142069.157097752 
+e-step:iteration  2 :
+computing ELBO in e-step...
+ELBO is  -141958.372841534 
+e-step:iteration  3 :
+computing ELBO in e-step...
+ELBO is  -141793.064194864 
+e-step:iteration  4 :
+computing ELBO in e-step...
+ELBO is  -141609.148740462 
+e-step:iteration  5 :
+computing ELBO in e-step...
+ELBO is  -141497.874106619 
+e-step:iteration  6 :
+computing ELBO in e-step...
+ELBO is  -141432.480065741 
+e-step:iteration  7 :
+computing ELBO in e-step...
+ELBO is  -141295.749605696 
+e-step:iteration  8 :
+computing ELBO in e-step...
+ELBO is  -141213.499409697 
+e-step:iteration  9 :
+computing ELBO in e-step...
+ELBO is  -141165.609132769 
+e-step:iteration  10 :
+computing ELBO in e-step...
+ELBO is  -141118.170860755 
+e-step:iteration  11 :
+computing ELBO in e-step...
+ELBO is  -141072.734027472 
+e-step:iteration  12 :
+computing ELBO in e-step...
+ELBO is  -140997.794749892 
+e-step:iteration  13 :
+computing ELBO in e-step...
+ELBO is  -140957.969156302 
+e-step:iteration  14 :
+computing ELBO in e-step...
+ELBO is  -140946.97073207 
+e-step:iteration  15 :
+computing ELBO in e-step...
+ELBO is  -140946.945041103 
+e-step:iteration  16 :
+computing ELBO in e-step...
+ELBO is  -140946.951673327 
+e-step:iteration  17 :
+computing ELBO in e-step...
+ELBO is  -140946.957241892 
+e-step:iteration  18 :
+computing ELBO in e-step...
+ELBO is  -140946.958992466 
+e-step:iteration  19 :
+computing ELBO in e-step...
+ELBO is  -140946.959405728 
+e-step:iteration  20 :
+computing ELBO in e-step...
+ELBO is  -140946.959496117 
+e-step:iteration  21 :
+computing ELBO in e-step...
+ELBO is  -140946.959515517 
+e-step:iteration  22 :
+computing ELBO in e-step...
+ELBO is  -140946.959519661 
+e-step:iteration  23 :
+computing ELBO in e-step...
+ELBO is  -140946.959520544 
+e-step:iteration  24 :
+computing ELBO in e-step...
+ELBO is  -140946.959520733 
+e-step:iteration  25 :
+computing ELBO in e-step...
+ELBO is  -140946.959520773 
+e-step:iteration  26 :
+computing ELBO in e-step...
+ELBO is  -140946.959520782 
+ELBO has converged!!!
+RStudioGD 
+        2 
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[15] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[15] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+All neighbors can now be statically accessed!
+All non-neighbors can now be statically accessed!
+phi.links are initialized!
+phi.nonlinks are initialized!
+to access use the format: phi.nonlinks[a,k]
+Local parameters phi are now initialized!
+e-step:iteration  1 :
+computing ELBO in e-step...
+ELBO is  NaN 
+RStudioGD 
+        2 
+logical(0)
+All neighbors can now be statically accessed!
+All non-neighbors can now be statically accessed!
+phi.links are initialized!
+phi.nonlinks are initialized!
+to access use the format: phi.nonlinks[a,k]
+Local parameters phi are now initialized!
+e-step:iteration  1 :
+computing ELBO in e-step...
+ELBO is  -131802.877181407 
+e-step:iteration  2 :
+computing ELBO in e-step...
+ELBO is  -131720.58943628 
+e-step:iteration  3 :
+computing ELBO in e-step...
+ELBO is  -131593.520815411 
+e-step:iteration  4 :
+computing ELBO in e-step...
+ELBO is  -131425.65857145 
+e-step:iteration  5 :
+computing ELBO in e-step...
+ELBO is  -131289.522797768 
+e-step:iteration  6 :
+computing ELBO in e-step...
+ELBO is  -131216.940608974 
+e-step:iteration  7 :
+computing ELBO in e-step...
+ELBO is  -131149.047597403 
+e-step:iteration  8 :
+computing ELBO in e-step...
+ELBO is  -131063.460111342 
+e-step:iteration  9 :
+computing ELBO in e-step...
+ELBO is  -130988.297726396 
+e-step:iteration  10 :
+computing ELBO in e-step...
+ELBO is  -130943.913706419 
+e-step:iteration  11 :
+computing ELBO in e-step...
+ELBO is  -130905.817706702 
+e-step:iteration  12 :
+computing ELBO in e-step...
+ELBO is  -130857.936734987 
+e-step:iteration  13 :
+computing ELBO in e-step...
+ELBO is  -130837.89440622 
+e-step:iteration  14 :
+computing ELBO in e-step...
+ELBO is  -130829.704766642 
+e-step:iteration  15 :
+computing ELBO in e-step...
+ELBO is  -130820.488669933 
+e-step:iteration  16 :
+computing ELBO in e-step...
+ELBO is  -130787.033328293 
+e-step:iteration  17 :
+computing ELBO in e-step...
+ELBO is  -130761.95669577 
+e-step:iteration  18 :
+computing ELBO in e-step...
+ELBO is  -130758.445335468 
+e-step:iteration  19 :
+computing ELBO in e-step...
+ELBO is  -130758.257658539 
+e-step:iteration  20 :
+computing ELBO in e-step...
+ELBO is  -130758.219489899 
+e-step:iteration  21 :
+computing ELBO in e-step...
+ELBO is  -130758.206736841 
+e-step:iteration  22 :
+computing ELBO in e-step...
+ELBO is  -130758.20221834 
+e-step:iteration  23 :
+computing ELBO in e-step...
+ELBO is  -130758.200564909 
+e-step:iteration  24 :
+computing ELBO in e-step...
+ELBO is  -130758.199951842 
+e-step:iteration  25 :
+computing ELBO in e-step...
+ELBO is  -130758.199723374 
+e-step:iteration  26 :
+computing ELBO in e-step...
+ELBO is  -130758.199638071 
+e-step:iteration  27 :
+computing ELBO in e-step...
+ELBO is  -130758.199606199 
+e-step:iteration  28 :
+computing ELBO in e-step...
+ELBO is  -130758.199594287 
+e-step:iteration  29 :
+computing ELBO in e-step...
+ELBO is  -130758.199589836 
+e-step:iteration  30 :
+computing ELBO in e-step...
+ELBO is  -130758.199588172 
+e-step:iteration  31 :
+computing ELBO in e-step...
+ELBO is  -130758.199587549 
+e-step:iteration  32 :
+computing ELBO in e-step...
+ELBO is  -130758.199587317 
+e-step:iteration  33 :
+computing ELBO in e-step...
+ELBO is  -130758.19958723 
+e-step:iteration  34 :
+computing ELBO in e-step...
+ELBO is  -130758.199587198 
+e-step:iteration  35 :
+computing ELBO in e-step...
+ELBO is  -130758.199587186 
+e-step:iteration  36 :
+computing ELBO in e-step...
+ELBO is  -130758.199587181 
+ELBO has converged!!!
+RStudioGD 
+        2 
+ [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[17] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+[33] TRUE TRUE TRUE TRUE
+All neighbors can now be statically accessed!
+All non-neighbors can now be statically accessed!
+phi.links are initialized!
+phi.nonlinks are initialized!
+to access use the format: phi.nonlinks[a,k]
+Local parameters phi are now initialized!
+e-step:iteration  1 :
+computing ELBO in e-step...
+ELBO is  NaN 
+RStudioGD 
+        2 
+logical(0)
+All neighbors can now be statically accessed!
+All non-neighbors can now be statically accessed!
+phi.links are initialized!
+phi.nonlinks are initialized!
+to access use the format: phi.nonlinks[a,k]
+Local parameters phi are now initialized!
+e-step:iteration  1 :
+computing ELBO in e-step...
+ELBO is  -144573.357374906 
+e-step:iteration  2 :
+computing ELBO in e-step...
+ELBO is  -144480.417435248 
+e-step:iteration  3 :
+computing ELBO in e-step...
+ELBO is  -144345.244734104 
+e-step:iteration  4 :
+computing ELBO in e-step...
+ELBO is  -144186.33534351 
+e-step:iteration  5 :
+computing ELBO in e-step...
+ELBO is  -144038.517085605 
+e-step:iteration  6 :
+computing ELBO in e-step...
+ELBO is  -143909.647952783 
+e-step:iteration  7 :
+computing ELBO in e-step...
+ELBO is  -143826.609101213 
+e-step:iteration  8 :
+computing ELBO in e-step...
+ELBO is  -143739.700116606 
+e-step:iteration  9 :
+computing ELBO in e-step...
+ELBO is  -143687.950354772 
+e-step:iteration  10 :
+computing ELBO in e-step...
+ELBO is  -143672.229786125 
+e-step:iteration  11 :
+computing ELBO in e-step...
+ELBO is  -143645.272259607 
+e-step:iteration  12 :
+computing ELBO in e-step...
+ELBO is  -143594.888682965 
+e-step:iteration  13 :
+computing ELBO in e-step...
+ELBO is  -143519.768078822 
+e-step:iteration  14 :
+computing ELBO in e-step...
+ELBO is  -143447.110574776 
+e-step:iteration  15 :
+computing ELBO in e-step...
+ELBO is  -143428.002660119 
+e-step:iteration  16 :
+computing ELBO in e-step...
+ELBO is  -143427.593063531 
+e-step:iteration  17 :
+computing ELBO in e-step...
+ELBO is  -143427.471954004 
+e-step:iteration  18 :
+computing ELBO in e-step...
+ELBO is  -143427.354281509 
+e-step:iteration  19 :
+computing ELBO in e-step...
+ELBO is  -143427.23040361 
+e-step:iteration  20 :
+computing ELBO in e-step...
+ELBO is  -143427.102296771 
+e-step:iteration  21 :
+computing ELBO in e-step...
+ELBO is  -143427.001390831 
+e-step:iteration  22 :
+computing ELBO in e-step...
+ELBO is  -143426.974225124 
+e-step:iteration  23 :
+computing ELBO in e-step...
+ELBO is  -143426.981111176 
+e-step:iteration  24 :
+computing ELBO in e-step...
+ELBO is  -143426.983656243 
+e-step:iteration  25 :
+computing ELBO in e-step...
+ELBO is  -143426.984065408 
+e-step:iteration  26 :
+computing ELBO in e-step...
+ELBO is  -143426.984140025 
+e-step:iteration  27 :
+computing ELBO in e-step...
+ELBO is  -143426.984161442 
+e-step:iteration  28 :
+computing ELBO in e-step...
+ELBO is  -143426.98417027 
+e-step:iteration  29 :
+computing ELBO in e-step...
+ELBO is  -143426.984174467 
+e-step:iteration  30 :
+computing ELBO in e-step...
+ELBO is  -143426.984176542 
+e-step:iteration  31 :
+computing ELBO in e-step...
+ELBO is  -143426.984177579 
+e-step:iteration  32 :
+computing ELBO in e-step...
+ELBO is  -143426.984178098 
+e-step:iteration  33 :
+computing ELBO in e-step...
+ELBO is  -143426.984178358 
+e-step:iteration  34 :
+computing ELBO in e-step...
+ELBO is  -143426.984178488 
+e-step:iteration  35 :
+computing ELBO in e-step...
+ELBO is  -143426.984178554 
+e-step:iteration  36 :
+computing ELBO in e-step...
+ELBO is  -143426.984178586 
+e-step:iteration  37 :
+computing ELBO in e-step...
+ELBO is  -143426.984178602 
+e-step:iteration  38 :
+computing ELBO in e-step...
+ELBO is  -143426.984178611 
+ELBO has converged!!!
+RStudioGD 
+        2 
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[15]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[29] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [1] -144573.3574 -144480.4174 -144345.2447 -144186.3353 -144038.5171 -143909.6480
+ [7] -143826.6091 -143739.7001 -143687.9504 -143672.2298 -143645.2723 -143594.8887
+[13] -143519.7681 -143447.1106 -143428.0027 -143427.5931 -143427.4720 -143427.3543
+[19] -143427.2304 -143427.1023 -143427.0014 -143426.9742 -143426.9811 -143426.9837
+[25] -143426.9841 -143426.9841 -143426.9842 -143426.9842 -143426.9842 -143426.9842
+[31] -143426.9842 -143426.9842 -143426.9842 -143426.9842 -143426.9842 -143426.9842
+[37] -143426.9842 -143426.9842

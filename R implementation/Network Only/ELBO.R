@@ -8,7 +8,7 @@ compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
     for(m in 1:M){
         for(k in 1:K){
             x=phi.links[m,k]
-            x.norm.const = sum(phi.links[m,])
+            #x.norm.const = sum(phi.links[m,])
             # if(phi.links[m,k] < 10^-8){
             #   x=10^-8  
             # }
@@ -18,8 +18,8 @@ compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
                          Elog.B[k,1]-log(x)-log.eps)+log.eps
         }
     }
-    # cat(paste("1:",s, "\n"))
-    for(mn in nrow(nonlinks)){
+
+    for(mn in 1:nrow(nonlinks)){
         for(k in 1:K){
             x1=phi.nonlinks[nonlinks$X1[mn],k]
             x2=phi.nonlinks[nonlinks$X2[mn],k]
@@ -35,24 +35,21 @@ compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
                 log.1.minus.eps
         }
     }
-    # cat(paste("2:",s, "\n"))
+
     for(a in 1:N){
-        s = s-lgamma(sum(gamma[a,]))+lgamma(sum(alpha))
+        s = s-lgamma(sum(gamma[a,]))#+lgamma(sum(alpha))
     }
-    # cat(paste("3:",s, "\n"))
     for(a in 1:N){
         for(k in 1:K){
-            s = s-lgamma(alpha[k])+(alpha[k]-gamma[a,k])*Elog.theta[a,k]+
-                lgamma(gamma[a,k])
+            s = s+(alpha[k]-gamma[a,k])*Elog.theta[a,k]+lgamma(gamma[a,k])
+            #-lgamma(alpha[k])
         }
     }
-    # cat(paste("4:",s, "\n"))
     for(k in 1:K){
         s = s+(eta0-tau0[k])*Elog.B[k,1]+
             (eta1-tau1[k])*Elog.B[k,2]-lgamma(tau0[k]+tau1[k])+
-            lgamma(tau0[k])+lgamma(tau1[k])+lgamma(eta0+eta1)-lgamma(eta0)-lgamma(eta1)
+            lgamma(tau0[k])+lgamma(tau1[k])#+lgamma(eta0+eta1)-lgamma(eta0)-lgamma(eta1)
     }
-    # cat(paste("5:",s, "\n"))
     return(s)
 }
 

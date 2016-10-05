@@ -1,0 +1,3 @@
+computing ELBO in e-step...
+ELBO is  -141357.681433629 
+-141357.6814	
