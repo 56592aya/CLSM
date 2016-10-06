@@ -1,9 +1,11 @@
+__precompile__
 module GenrNetwork
+export N ,K ,adj_matrix, η0, η1, α, ϵ, Θ, β
 using Distributions
 using GenericFuncs:sort_by_argmax
 
-N=75
-K=5
+N=100
+K=13
 ϵ = 1e-30
 η0 = 10
 η1 = 1
@@ -45,6 +47,4 @@ for a in 1:N
         end
     end
 end
-
-export N ,K ,adj_matrix, η0, η1, α, ϵ, Θ, β
 end

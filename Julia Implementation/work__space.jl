@@ -1,7 +1,8 @@
+__precompile__
 module WorkSpace
-importall GenrNetwork
+using GenrNetwork
 using Gadfly
 #adj_matrix
-spy(adj_matrix)
+Gadfly.spy(adj_matrix)
 #spy(Θ)
 end

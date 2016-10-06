@@ -1,9 +1,15 @@
+__precompile__
 module Inference
+export ELBO
+# include("generic_funcs.jl")
+# include("genr_network.jl")
+# include("work__space.jl")
+# include("local_update.jl")
 using DataFrames
 using Distributions
 using Gadfly
 using GenericFuncs:get_links, get_nonlinks, get_static_neighbors, get_static_nonneighbors,Elog_Dirichlet,Elog_Beta, log_sum
-importall GenrNetwork
+using GenrNetwork
 using LocalUpdate:update_ϕ_nonlinks
 
 
@@ -163,6 +169,5 @@ elbo_df = DataFrame(ITERATIONS=1:length(ELBO), ELBO_VALUE=ELBO[1:length(ELBO)])
 
 ELBO
 elbo_df
-Gadfly.plot(x=2:length(ELBO),y=ELBO[2:length(ELBO)], Geom.point,Geom.line)
-
+p= Gadfly.plot(elbo_df, x="ITERATIONS", y="ELBO_VALUE",Geom.point,Geom.line)
 end

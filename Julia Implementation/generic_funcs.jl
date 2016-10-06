@@ -1,4 +1,7 @@
+__precompile__
 module GenericFuncs
+export log_sum, get_static_neighbors, get_static_nonneighbors, get_links,get_nonlinks
+export get_neighbors, get_nonneighbors, sort_by_argmax,Elog_Dirichlet,Elog_Beta
 using DataFrames
 function sort_by_argmax(mat)
     N=size(mat)[1]
@@ -145,8 +148,4 @@ function Elog_Beta(l0, l1)
     end
     temp
 end
-
-export log_sum, get_static_neighbors, get_static_nonneighbors, get_links,get_nonlinks
-export get_neighbors, get_nonneighbors, sort_by_argmax,Elog_Dirichlet,Elog_Beta
-
 end

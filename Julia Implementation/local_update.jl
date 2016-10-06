@@ -1,4 +1,6 @@
+__precompile__
 module LocalUpdate
+export update_ϕ_nonlinks
 using GenrNetwork:K, N, adj_matrix
 
 function update_ϕ_nonlinks(mat)
@@ -10,5 +12,4 @@ function update_ϕ_nonlinks(mat)
     end
     temp
 end
-export update_ϕ_nonlinks
 end
