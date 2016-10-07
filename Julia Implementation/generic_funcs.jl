@@ -1,16 +1,32 @@
 __precompile__
 module GenericFuncs
-export log_sum, get_static_neighbors, get_static_nonneighbors, get_links,get_nonlinks
-export get_neighbors, get_nonneighbors, sort_by_argmax,Elog_Dirichlet,Elog_Beta
+
+export log_sum, get_static_neighbors, get_static_nonneighbors, get_links,
+get_nonlinks, get_neighbors, get_nonneighbors, sort_by_argmax,
+Elog_Dirichlet,Elog_Beta
+
 using DataFrames
-function sort_by_argmax(mat)
+
+"""
+sort_by_argmax(mat)
+sorts a matrix `mat` by their argmax positions along the rows.
+# Arguments
+* `mat`: a two dimensional array.
+# Examples
+
+```jldoctest
+julia> a = [1 2;4 0;2 3]
+julia> sort_by_argmax(a)
+```
+"""
+function sort_by_argmax(mat::Array{Float64, 2})
     N=size(mat)[1]
     K=size(mat)[2]
+
     amax=zeros(Int64, N)
     for a in 1:N
         amax[a] = indmax(mat[a,:])
     end
-
     mat_tmp = similar(mat)
     count = 1
     for j in 1:maximum(amax)
@@ -24,7 +40,21 @@ function sort_by_argmax(mat)
     mat_tmp
 end
 
-function get_neighbors(mat, a)
+"""
+get_neighbors(mat,a)
+finds the neighbors(1 positions) of `a` in `mat`
+# Arguments
+* `mat`: a square matrix.
+* `a` : a single node
+# Examples
+
+```jldoctest
+julia> a = 2
+julia> mat = [0 1 1 0;1 0 0 0; 1 0 0 1;0 0 1 0]
+julia> get_neighbors(mat, a)
+```
+"""
+function get_neighbors(mat::Array{Int64, 2}, a)
     N = size(mat)[1]
     neigh_a = Int64[]
     for b in 1:N
@@ -35,7 +65,21 @@ function get_neighbors(mat, a)
     neigh_a
 end
 
-function get_nonneighbors(mat, a)
+"""
+get_nonneighbors(mat,a)
+finds the nonneighbors(0 positions) of `a` in `mat`
+# Arguments
+* `mat`: a square matrix.
+* `a` : a single node
+# Examples
+
+```jldoctest
+julia> a = 2
+julia> mat = [0 1 1 0;1 0 0 0; 1 0 0 1;0 0 1 0]
+julia> get_nonneighbors(mat, a)
+```
+"""
+function get_nonneighbors(mat::Array{Int64, 2}, a::Int64)
     N = size(mat)[1]
     neigh_a = get_neighbors(mat, a)
     nonneigh_a = Int64[]
@@ -52,7 +96,20 @@ function get_nonneighbors(mat, a)
     end
     nonneigh_a
 end
-function get_links(mat)
+
+"""
+get_links(mat)
+gets all the unique links in a square matrix `mat`
+# Arguments
+* `mat`: a square matrix.
+# Examples
+
+```jldoctest
+julia> mat = [0 1 1 0;1 0 0 0; 1 0 0 1;0 0 1 0]
+julia> get_links(mat)
+```
+"""
+function get_links(mat::Array{Int64, 2})
     N = size(mat)[1]
     num_links = convert(Int64, sum(mat)/2)
     df = DataFrame(X1=1:num_links, X2=1:num_links)
@@ -72,7 +129,19 @@ function get_links(mat)
     df
 end
 
-function get_nonlinks(mat)
+"""
+get_nonlinks(mat)
+gets all the unique nonlinks in a square matrix `mat`
+# Arguments
+* `mat`: a square matrix.
+# Examples
+
+```jldoctest
+julia> mat = [0 1 1 0;1 0 0 0; 1 0 0 1;0 0 1 0]
+julia> get_nonlinks(mat)
+```
+"""
+function get_nonlinks(mat::Array{Int64, 2})
     N=size(mat)[1]
     num_links = convert(Int64, sum(mat)/2)
     num_nonlinks = convert(Int64, N*(N-1)/2 - num_links)
@@ -92,7 +161,20 @@ function get_nonlinks(mat)
     end
     df
 end
-function get_static_neighbors(mat)
+
+"""
+get_static_neighbors(mat)
+creates all the neighbors lists for all nodes.
+# Arguments
+* `mat`: a square matrix.
+# Examples
+
+```jldoctest
+julia> mat = [0 1 1 0;1 0 0 0; 1 0 0 1;0 0 1 0]
+julia> get_static_neighbors(mat)
+```
+"""
+function get_static_neighbors(mat::Array{Int64, 2})
     N = size(mat)[1]
     stat_neigh = Array(Vector{Int64}, N)
     for a in 1:N
@@ -101,8 +183,19 @@ function get_static_neighbors(mat)
     stat_neigh
 end
 
+"""
+get_static_neighbors(mat)
+creates all the nonneighbors lists for all nodes.
+# Arguments
+* `mat`: a square matrix.
+# Examples
 
-function get_static_nonneighbors(mat)
+```jldoctest
+julia> mat = [0 1 1 0;1 0 0 0; 1 0 0 1;0 0 1 0]
+julia> get_static_nonneighbors(mat)
+```
+"""
+function get_static_nonneighbors(mat::Array{Int64, 2})
     N= size(mat)[1]
     stat_nonneigh = Array(Vector{Int64}, N)
     for a in 1:N
@@ -111,7 +204,21 @@ function get_static_nonneighbors(mat)
     stat_nonneigh
 end
 
-function log_sum(log_a, log_b)
+"""
+log_sum(log_a, log_b)
+computes the `log(a+b)` given `log(a)` and `log(b)`.
+# Arguments
+* `log_a`: a `Float64` number, `log(a)`
+* `log_b`: a `Float64` number, `log(b)`
+# Examples
+
+```jldoctest
+julia> a = 10;b=5;
+julia> log_a=log(a); log_b= log(b)
+julia> log_sum(log_a, log_b)
+```
+"""
+function log_sum(log_a::Float64, log_b::Float64)
     v = 0.0
     if log_a < log_b
         if exp(log_a - log_b) < 1e-10
@@ -128,24 +235,66 @@ function log_sum(log_a, log_b)
     end
     v
 end
-function Elog_Dirichlet(mat)
+
+"""
+Elog_Dirichlet(mat)
+computes the expectation of log of a Dirichlet distributed parameter.
+this is for each element at [a,k]: a={1,...,N}, K={1,...,K}, Ψ(γₐₖ)-Ψ(∑ₖγₐ,)
+# Arguments
+* `mat` : a two dimensional array of N×K
+# Examples
+
+```jldoctest
+julia> mat=[0.5 0.6; 0.2 0.8; 0.9 0.1]
+julia> Elog_Dirichlet(mat)
+```
+"""
+function Elog_Dirichlet(mat::Array{Float64, 2})
     N = size(mat)[1]
     K = size(mat)[2]
     temp = zeros(Float64, (N,K))
     for a in 1:N
         for k in 1:K
+            # Ψ(γₐₖ)-Ψ(∑ₖγₐ,)
             temp[a,k] = digamma(mat[a,k]) - digamma(sum(mat[a,:]))
         end
     end
     temp
 end
-function Elog_Beta(l0, l1)
+
+"""
+Elog_Beta`(mat)
+computes the expectation of log of a Beta distributed parameter.
+this is for each element at [k,i]: k={1,...,K}, i={1,2}, Ψ(τₖᵢ)-Ψ(τₖ₁+τₖ₂)
+# Arguments
+* `mat` : a two dimensional array of K×2
+# Examples
+
+```jldoctest
+julia> mat=[0.5 0.6; 0.2 0.8; 0.9 0.1]
+julia> Elog_Beta(mat)
+```
+"""
+function Elog_Beta(l0::Array{Float64, 1}, l1::Array{Float64, 1})
     K = length(l1)
     temp = zeros(Float64, (K,2))
     for k in 1:K
+        # Ψ(τₖᵢ)-Ψ(τₖ₁+τₖ₂)
         temp[k,1] = digamma(l0[k]) - digamma(l0[k]+l1[k])
         temp[k,2] = digamma(l1[k]) - digamma(l0[k]+l1[k])
     end
     temp
 end
+
+function estimate_beta(tau0::Array{Float64, 1}, tau1::Array{Float64, 1})
+    K=length(tau0)
+    beta_rate= zeros(Float64, K)
+    for k in 1:K
+        sum=0
+        sum=sum+tau0[k]+tau1[k]
+        beta_rate[k]=tau0[k]/sum
+    end
+    beta_rate
+end
+
 end

@@ -1,25 +1,32 @@
 __precompile__
 module Inference
 export ELBO
-# include("generic_funcs.jl")
-# include("genr_network.jl")
-# include("work__space.jl")
-# include("local_update.jl")
+
 using DataFrames
 using Distributions
 using Gadfly
 using GenericFuncs:get_links, get_nonlinks, get_static_neighbors, get_static_nonneighbors,Elog_Dirichlet,Elog_Beta, log_sum
 using GenrNetwork
-using LocalUpdate:update_ϕ_nonlinks
+
 
 
 M = convert(Int64, sum(adj_matrix/2))
 links=get_links(adj_matrix)
+immutable MyNodePair
+    source::UInt64
+    sink::UInt64
+end
+
 non_links = get_nonlinks(adj_matrix)
 neighbors = get_static_neighbors(adj_matrix)
 non_neighbors = get_static_nonneighbors(adj_matrix)
+deg_a = zeros(Int64, N)
+for a in 1:N
+    deg_a[a] = length(neighbors[a])
+end
 
 ϕ_links = zeros(Float64, (M, K+2))
+ϕ_nonlinks=zeros(Float64, (N, K))
 for m in 1:M
     ϕ_links[m, K+1] = links[m,1]
     ϕ_links[m, K+2] = links[m,2]
@@ -28,14 +35,20 @@ for m in 1:M
     end
 end
 ##watch out, data frame is more convenient as links are not Float64
-ϕ_nonlinks = update_ϕ_nonlinks(ϕ_links)
-
+# ϕ_nonlinks = update_ϕ_nonlinks(ϕ_links)
+# for a in 1:N
+#     for k in 1:K
+#         ϕ_nonlinks[a,k]=(sum(ϕ_links[ϕ_links[:,K+1].== a,k]) + sum(ϕ_links[ϕ_links[:,K+2].== a,k]))/sum(adj_matrix[a,:])
+#     end
+# end
+for k in 1:K, a in 1:N
+    ϕ_nonlinks[a,k]=(sum(view(ϕ_links, view(ϕ_links, :,(K+1)) .== a, k)) + sum(view(ϕ_links, view(ϕ_links, :,(K+2)) .== a, k))) /deg_a[a]
+end
+srand(1234)
 γ = zeros(Float64, (N, K))
-for a in 1:N
-    for k in 1:K
-        dunif = Uniform(0,1)
-        γ[a,k] = rand(dunif)
-    end
+for k in 1:K, a in 1:N
+    dunif = Uniform(0,1)
+    γ[a,k] = rand(dunif)
 end
 
 total_pairs = convert(Int64, N*(N-1)/2)
@@ -47,10 +60,7 @@ for k in 1:K
     τ1[k] = η1
 end
 
-deg_a = zeros(Int64, N)
-for a in 1:N
-    deg_a[a] = length(neighbors[a])
-end
+
 
 MAX_ITER=1000
 min_threshold = 1e-8
@@ -66,33 +76,45 @@ log_phi = zeros(Float64, (M,K))
 CONVERGED= false
 iteration=1
 ELBO=Float64[]
-
+"""
+compute_elbo(log_ϵ, log_1_minus_ϵ, ϕ_links, ϕ_nonlinks, Elog_Θ, Elog_β, non_links, η0, η1, τ0, τ1, γ, α)
+computes the variational lower bound(ELBO) for the E-step
+# Arguments
+* `log_ϵ`: is log of ϵ value
+* `log_1_minus_ϵ`: is log of (1-ϵ) value
+* `ϕ_links`: is a matrix of N×K variational parameters
+* `ϕ_nonlinks`: is a matrix of N×K variational parameters
+* `Elog_Θ`: is a matrix of N×K
+* `Elog_β`: is a matrix of K×2
+* `non_links`: the list of neighbors of each node
+* `η0`: model scale hyperparameter of the Beta dsitributed parameter
+* `η1`: model shape hyperparameter of the Beta dsitributed parameter
+* `τ0`: scale hyperparameter of the Beta dsitributed variational parameter
+* `τ1`: shape hyperparameter of the Beta dsitributed variational parameter
+* `γ` : variational parameter for Dirichlet distributd Θ, a matrix of N×K
+* `α` : model Dirichlet parameter for community strength
+"""
 function compute_elbo(log_ϵ, log_1_minus_ϵ, ϕ_links, ϕ_nonlinks, Elog_Θ, Elog_β, non_links, η0, η1, τ0, τ1, γ, α)
     num_nonlinks = size(non_links)[1]
     s = 0.0
-    for m in 1:M
-        for k in 1:K
-            s = s + ϕ_links[m,k] * (Elog_Θ[links[m,1],k]+Elog_Θ[links[m,2],k]+Elog_β[k,1]-log(ϕ_links[m,k]-log_ϵ))+log_ϵ
-        end
+    ##inefficient(define the view(A, ind) for dataframes, or use matrix form of links)
+    for k in 1:K, m in 1:M
+        s = s + ϕ_links[m,k] * (Elog_Θ[links[m,1],k]+Elog_Θ[links[m,2],k]+Elog_β[k,1]-log(ϕ_links[m,k]-log_ϵ))+log_ϵ
     end
-    for mn in 1:num_nonlinks
-        for k in 1:K
-            x1 = ϕ_nonlinks[non_links[mn,1],k]
-            x2 = ϕ_nonlinks[non_links[mn,2],k]
-            s = s + x1*x2*(Elog_β[k,2]-log_1_minus_ϵ)+x1*(Elog_Θ[non_links[mn, 1],k]-log(x1))+x2*(Elog_Θ[non_links[mn, 2],k]-log(x2))+log_1_minus_ϵ
-        end
+    for k in 1:K, mn in 1:num_nonlinks
+        x1 = ϕ_nonlinks[non_links[mn,1],k]
+        x2 = ϕ_nonlinks[non_links[mn,2],k]
+        s = s + x1*x2*(Elog_β[k,2]-log_1_minus_ϵ)+x1*(Elog_Θ[non_links[mn, 1],k]-log(x1))+x2*(Elog_Θ[non_links[mn, 2],k]-log(x2))+log_1_minus_ϵ
     end
     for a in 1:N
         s = s - lgamma(sum(γ[a,:]))
     end
 
     for k in 1:K
-            s = s+(η0-τ0[k])*Elog_β[k,1]+(η1-τ1[k])*Elog_β[k,1]-lgamma(τ0[k]+τ1[k])+lgamma(τ0[k])+lgamma(τ1[k])
+        s = s+(η0-τ0[k])*Elog_β[k,1]+(η1-τ1[k])*Elog_β[k,1]-lgamma(τ0[k]+τ1[k])+lgamma(τ0[k])+lgamma(τ1[k])
     end
-    for a in 1:N
-        for k in 1:K
-             s = s + (α[k]-γ[a,k])*Elog_Θ[a,k]+lgamma(γ[a,k])
-        end
+    for k in 1:K, a in 1:N
+         s = s + (α[k]-γ[a,k])*Elog_Θ[a,k]+lgamma(γ[a,k])
     end
     s
 end
@@ -114,12 +136,13 @@ while !CONVERGED || (iteration > MAX_ITER)
         end
     end
     #test
-    ϕ_nonlinks = update_ϕ_nonlinks(ϕ_links)
+    for k in 1:K, a in 1:N
+        ϕ_nonlinks[a,k]=(sum(ϕ_links[ϕ_links[:,K+1].== a,k]) + sum(ϕ_links[ϕ_links[:,K+2].== a,k]))/sum(adj_matrix[a,:])
+    end
+    # ϕ_nonlinks = update_ϕ_nonlinks(ϕ_links)
     #test
-    for a in 1:N
-        for k in 1:K
-            γ[a,k] = α[k]+deg_a[a]*ϕ_nonlinks[a,k]+(N-1-deg_a[a])*ϕ_nonlinks[a,k]
-        end
+    for k in 1:K, a in 1:N
+        γ[a,k] = α[k]+deg_a[a]*ϕ_nonlinks[a,k]+(N-1-deg_a[a])*ϕ_nonlinks[a,k]
     end
     for k in 1:K
         τ0[k] = η0 + sum(ϕ_links[:,k])
@@ -168,6 +191,8 @@ end
 elbo_df = DataFrame(ITERATIONS=1:length(ELBO), ELBO_VALUE=ELBO[1:length(ELBO)])
 
 ELBO
+writetable("elbo_julia.csv", elbo_df)
 elbo_df
-p= Gadfly.plot(elbo_df, x="ITERATIONS", y="ELBO_VALUE",Geom.point,Geom.line)
+Gadfly.plot(elbo_df, x="ITERATIONS", y="ELBO_VALUE",Geom.point,Geom.line)
+
 end

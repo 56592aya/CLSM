@@ -5,11 +5,11 @@ using Distributions
 using GenericFuncs:sort_by_argmax
 
 N=100
-K=13
+K=8
 ϵ = 1e-30
 η0 = 10
 η1 = 1
-
+srand(1234)
 β_diag = zeros(Float64, (K,K))
 
 dbeta=Beta(η0, η1)
