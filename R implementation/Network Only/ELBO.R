@@ -1,3 +1,5 @@
+x = read.csv("~/Dropbox/Arash/EUR/Workspace/CLSM/Julia Implementation/elbo_julia.csv")
+plot(x$ITERATIONS, x$ELBO_VALUE, type = 'l')
 compute.ELBO.E <- function(phi.links,phi.nonlinks, Elog.theta, Elog.B,
                            eps,links,nonneighbors,alpha, gamma,
                            tau0, tau1, eta0, eta1){
