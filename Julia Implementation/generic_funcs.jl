@@ -218,6 +218,21 @@ julia> log_a=log(a); log_b= log(b)
 julia> log_sum(log_a, log_b)
 ```
 """
+# arr = zeros(Int64, (10,2))
+# out = similar(arr)
+# x   = similar(arr)
+# arr[:,1] = [1 2 3 4 5 6 7 8 9 10]
+# arr[:,2] = [2 3 2 3 4 4 5 6 7 5]
+# for j in 1:2, i in 1:10
+#     x[i,j]=sum(view(arr,view(arr,:,2) .== i, j))
+# end
+# x
+# x2 = zeros(Int, 10, 2)
+# for j in 1:size(arr, 2), i in 1:size(arr, 1)
+#     x2[arr[i, 2], j] += arr[i, j]
+# end
+# x2
+
 function log_sum(log_a::Float64, log_b::Float64)
     v = 0.0
     if log_a < log_b

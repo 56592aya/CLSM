@@ -1,0 +1,87 @@
+==> ./byFollowed.csv <==
+followed,follower,relationDate
+sushie,0000005,"2008-04-22 00:00:00"
+nataliezee,000001,"2008-03-15 00:00:00"
+sassoo,00001020,"2008-05-17 00:00:00"
+spellingbee,00001020,"2008-05-17 00:00:00"
+FaeryCupcake,000039,"2008-08-07 00:00:00"
+colbyhanks,00004,"2008-03-26 00:00:00"
+derniercri,0000770000,"2010-03-12 00:00:00"
+jeka,000096,"2008-07-26 00:00:00"
+Juminko,000096,"2008-06-16 00:00:00"
+
+==> ./byFollowers.csv <==
+follower,followed,relationDate
+0000005,sushie,"2008-04-22 00:00:00"
+000001,nataliezee,"2008-03-15 00:00:00"
+00001020,sassoo,"2008-05-17 00:00:00"
+00001020,spellingbee,"2008-05-17 00:00:00"
+000039,FaeryCupcake,"2008-08-07 00:00:00"
+00004,colbyhanks,"2008-03-26 00:00:00"
+0000770000,derniercri,"2010-03-12 00:00:00"
+000096,jeka,"2008-07-26 00:00:00"
+000096,Juminko,"2008-06-16 00:00:00"
+
+==> ./IDandDate.csv <==
+1000001,NULL
+1000111,2010-03-28
+1000143,2010-03-28
+1000181,2010-03-28
+1000204,NULL
+1000241,2010-03-28
+100029,2007-01-13
+1000389,2010-03-28
+100042,2007-01-13
+1000420,2010-03-28
+
+==> ./list_whole.csv <==
+id,description,discoveredSince,hivesNumber,lastRefreshDate,originator,profile,title,url,create_date
+,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL
+1000,"Bluetooth fabric keyboard by Eleksen",75m,4,"2012-05-21 18:15:04",honeybee,NULL,"Eleksen sports new keyboards for Ultra-Mobile PCs",http://www.stylehive.com/bookmark/1000,2006-02-17
+100000,,64m,1,"2012-05-21 23:56:12",janetboy7,NULL,FRESHJIVE,http://www.stylehive.com/bookmark/100000,2007-01-13
+1000001,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL
+100001,"Belgian Mouth-blown glass.",64m,8,"2012-05-21 23:55:49",sheshells,NULL,"Henry Dean Candleholder",http://www.stylehive.com/bookmark/100001,2007-01-13
+100002,"Mary Angus ""I love the perfume bottle. It's a very sensual form, intimate in scale. A vessel meant to contain fragrance and evoke memories."" Mary Angus seeks to create objects that dramatize the beauty of glass--the translucency, the movement; the effects of color, light, and shadow as they highlight subtle reliefs or sculptural carvings. The artist strives to communicate the beauty and fluidity of molten glass through the graceful curves and proportions of her blown vessels. As Angus blows and shapes the molten glass, she dusts the surface with a thin layer of powdered, colored glass, which immediately fuses to the form.",66m,23,NULL,julie3jax,NULL,"Mary Angus - Art Glass Perfume Bottles",http://www.stylehive.com/bookmarks/100002,2007-01-13
+1000028,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,NULL
+100003,"Her owl necklaces are so cool. I would buy them all up if I could. Right now, you can only get them online but she has regular trunk shows around Los Angeles. She buys each piece from estate sales from all over the world. SO each one is unique and has a story/history - almost like charms.",64m,1,"2012-05-21 23:55:53",SpinDaily,NULL,"It's A Treasure Hunt: classic vintage jewelry (Blog)",http://www.stylehive.com/bookmark/100003,2007-01-13
+1000036,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,2010-03-28
+
+==> ./personProducts.csv <==
+id,personId,productId,hivedSince
+1,rocketrobyn,231,70m
+2,chrisl,231,76m
+3,mcarrier69,233,76m
+4,chrisl,246,76m
+5,nolimitdomains,247,52m
+6,chrisl,247,76m
+7,f121212,250,76m
+8,reubstock,281,76m
+9,mcarrier69,282,76m
+
+==> ./persons.csv <==
+id,lastLogin,location,memberSince,name,profileCompletePercentage,bookmarkFirsts,communities,followersNbr,followsNbr,messages,profileViews,siteFirsts,totalSaves,profileId
+00001020,"2008-05-18 00:00:00",cairo,"2008-05-17 00:00:00","yasser afandy",10,0,0,0,2,10,0,0,1,363767
+000123,"2010-02-28 00:00:00",NULL,"2010-02-28 00:00:00",NULL,0,0,0,0,0,1,0,0,1,607508
+000309,"2008-02-25 00:00:00",Doha,"2008-02-20 00:00:00","Azvi Razak Mohamed",10,0,0,0,4,30,0,0,13,215179
+00337766,"2008-10-10 00:00:00",NULL,"2008-08-21 00:00:00",NULL,0,0,0,0,9,38,0,0,1,457450
+00770,"2009-02-01 00:00:00",hpa-an,"2009-02-01 00:00:00","nay zaw lin i haven't got",10,0,0,1,3,9,0,0,2,535109
+00966541927206,"2008-06-03 00:00:00",aljubail,"2008-05-26 00:00:00","ahsan ali",10,0,0,3,5,30,0,0,1,375234
+00966551190089,"2010-03-23 00:00:00",NULL,"2010-03-23 00:00:00",NULL,0,0,0,0,0,1,0,0,1,610392
+01010,"2008-04-01 00:00:00",cairo,"2008-03-29 00:00:00","h h",10,0,0,0,1,10,0,0,2,282839
+0108646204,"2008-05-22 00:00:00",alex,"2008-05-20 00:00:00","Mr. Hussam",10,0,0,0,4,13,0,0,1,367173
+
+==> ./products.csv <==
+id,description,discoveredSince,hivesNumber,lastRefreshDate,originator,profile,title,url
+,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL
+1000,"Bluetooth fabric keyboard by Eleksen",75m,4,"2012-05-21 18:15:04",honeybee,NULL,"Eleksen sports new keyboards for Ultra-Mobile PCs",http://www.stylehive.com/bookmark/1000
+100000,,64m,1,"2012-05-21 23:56:12",janetboy7,NULL,FRESHJIVE,http://www.stylehive.com/bookmark/100000
+1000001,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL
+100001,"Belgian Mouth-blown glass.",64m,8,"2012-05-21 23:55:49",sheshells,NULL,"Henry Dean Candleholder",http://www.stylehive.com/bookmark/100001
+100002,"Mary Angus ""I love the perfume bottle. It's a very sensual form, intimate in scale. A vessel meant to contain fragrance and evoke memories."" Mary Angus seeks to create objects that dramatize the beauty of glass--the translucency, the movement; the effects of color, light, and shadow as they highlight subtle reliefs or sculptural carvings. The artist strives to communicate the beauty and fluidity of molten glass through the graceful curves and proportions of her blown vessels. As Angus blows and shapes the molten glass, she dusts the surface with a thin layer of powdered, colored glass, which immediately fuses to the form.",66m,23,NULL,julie3jax,NULL,"Mary Angus - Art Glass Perfume Bottles",http://www.stylehive.com/bookmarks/100002
+1000028,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL
+100003,"Her owl necklaces are so cool. I would buy them all up if I could. Right now, you can only get them online but she has regular trunk shows around Los Angeles. She buys each piece from estate sales from all over the world. SO each one is unique and has a story/history - almost like charms.",64m,1,"2012-05-21 23:55:53",SpinDaily,NULL,"It's A Treasure Hunt: classic vintage jewelry (Blog)",http://www.stylehive.com/bookmark/100003
+1000036,NULL,NULL,0,NULL,NULL,NULL,NULL,NULL
+
+==> ./stats.txt <==
+26325 invalid products
+954534 products in total

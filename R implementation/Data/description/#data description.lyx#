@@ -1,0 +1,855 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Data pre-Description
+\end_layout
+
+\begin_layout Standard
+The data consists of seven data files.
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+byFollowed.csv
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+byFollowers.csv
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+IDandDate.csv
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+list_whole.csv
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+personProducts.csv
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+persons.csv
+\end_layout
+
+\begin_layout Enumerate
+
+\shape italic
+products.csv
+\end_layout
+
+\begin_layout Standard
+The files 
+\begin_inset Quotes eld
+\end_inset
+
+
+\shape italic
+byFollowed
+\shape default
+.csv
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+
+\shape italic
+byFollowers.csv
+\shape default
+
+\begin_inset Quotes erd
+\end_inset
+
+ are practically the same, where both demonstrate the direction of an interactio
+n and its recorded time.
+\end_layout
+
+\begin_layout Standard
+For example the 
+\shape italic
+byFollowe
+\shape default
+r.csv looks like below:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{clll}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ & follower & followed & relationDate 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 0000005 & sushie & 2008-04-22  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   2 & 000001 & nataliezee & 2008-03-15  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   3 & 00001020 & sassoo & 2008-05-17  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+vdots 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   335120 & 
+\backslash
+_
+\backslash
+_beeba & kabiri
+\backslash
+_victoria & 2008-03-19  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   335121 & 
+\backslash
+_
+\backslash
+_
+\backslash
+_mike
+\backslash
+_
+\backslash
+_ & shopbop
+\backslash
+_stylist & 2007-06-03  
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   335122 & 
+\backslash
+_
+\backslash
+_
+\backslash
+_
+\backslash
+_
+\backslash
+_ & Shopbop
+\backslash
+_Michelle & 2008-08-05  
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+hline 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+byFollowers.csv 
+\shape default
+data sample
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The two equivalent files, 
+\shape italic
+byFollowers.csv 
+\shape default
+and 
+\shape italic
+byFollowed.csv
+\shape default
+, consists of 
+\shape italic
+79280 
+\shape default
+unnique individuals interacting.
+ However the file 
+\shape italic
+persons.csv 
+\shape default
+has only 
+\shape italic
+38266 
+\shape default
+unique indidivuals.
+ The effective number could also be lower, as some users recorded 
+\shape italic
+
+\begin_inset Quotes eld
+\end_inset
+
+last login date
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\shape default
+and 
+\begin_inset Quotes eld
+\end_inset
+
+
+\shape italic
+member since date
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\shape default
+are the same, and alongside other information they could be just removed
+\shape italic
+.
+
+\shape default
+ The file 
+\shape italic
+persons.csv 
+\shape default
+looks as below:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{clllcr}   
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ & id & lastLogin  & memberSince & ...
+ & profileId 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+hline 
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 00001020 & 2008-05-18  & 2008-05-17  & ...
+ & 363767 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   2 & 000123 & 2010-02-28 & 2010-02-28  & ...
+ & 607508 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+  3 & 000309 & 2008-02-25  & 2008-02-20  & ...
+ & 215179 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vdots 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+38264 & 
+\backslash
+_marie
+\backslash
+_ & 2010-05-21  & 2010-05-21  & ...
+ & 618023 
+\backslash
+
+\backslash
+    38265 & 
+\backslash
+_wildhorse & 2009-01-11   & 2009-01-02   & ...
+ &  524881 
+\backslash
+
+\backslash
+    38266 & 
+\backslash
+_xXSwim
+\backslash
+_a
+\backslash
+_holicXx
+\backslash
+_ & 2009-08-03  & 2009-08-03    &   ...
+ & 577465 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+Persons.csv 
+\shape default
+sample data
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+More importantly 
+\shape italic
+byFollowers.csv/byFollowed.csv 
+\shape default
+and 
+\shape italic
+persons.csv
+\shape default
+ have only
+\shape italic
+ 18863 
+\shape default
+individuals in common together.
+ This might be a bit of a concern regarding making of the network, and relating
+ it to the products in the 
+\shape italic
+personProducts.csv
+\shape default
+.
+\end_layout
+
+\begin_layout Standard
+On the other hand the data 
+\shape italic
+personProduct.csv 
+\shape default
+also
+\shape italic
+ 
+\shape default
+contains
+\shape italic
+ 54002 
+\shape default
+unique number of individuals and all the individuals in the 
+\shape italic
+Persons.csv 
+\shape default
+are contained in this data as well.
+ Although a better situation, the overlap between the individuals in the
+ 
+\shape italic
+byFollower.csv 
+\shape default
+and the 
+\shape italic
+personProducts.csv 
+\shape default
+is 
+\shape italic
+22119.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{tabular}{cllll}
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+ & id & personId & productId & hivedSince 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\backslash
+hline
+\end_layout
+
+\begin_layout Plain Layout
+
+1 & 1 & rocketrobyn & 231 & 70m 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   2 & 2 & chrisl & 231 & 76m 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   3 & 3 & mcarrier69 & 233 & 76m 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+vdots 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	2737774 & 2836554 & zjl
+\backslash
+_work & 674513 & 38m 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+   2737775 & 2836555 & ZUBURBIA & 216017 & 56m 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  2737776 & 2836556 & ZUBURBIA & 294724 & 55m 
+\backslash
+
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+     
+\backslash
+hline 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{tabular}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+
+\shape italic
+personProducts.csv
+\shape default
+ sample data
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Next we look into the 
+\shape italic
+list_whole.csv 
+\shape default
+which contains 19820 unique 
+\shape italic
+originators(
+\shape default
+yet to be known what it is, probably just a one who creates a bookmark).
+ The originators are almost all included in the 
+\shape italic
+personProducts.csv
+\shape default
+.
+ The overlap between 
+\shape italic
+list_whole.csv 
+\shape default
+and 
+\shape italic
+Persons.csv 
+\shape default
+is 
+\shape italic
+16516 
+\shape default
+and only 
+\shape italic
+9310 
+\shape default
+with 
+\shape italic
+byFollowers.csv 
+\shape default
+unique individuals.
+ 
+\end_layout
+
+\begin_layout Section
+Network
+\end_layout
+
+\begin_layout Standard
+The network data is represented in either of the 
+\shape italic
+byFollowers.csv
+\shape default
+ or 
+\shape italic
+byFollowed.csv
+\shape default
+.
+ The network should be very sparse and should have some unconnected components.
+ The nodes come from the 79820 individuals for now we consider a sender/source
+ and a reciever/sink and later we can decide whether we want to keep the
+ directed or the undirected network.
+\end_layout
+
+\begin_layout Standard
+The network file is constructed in the Network.csv
+\end_layout
+
+\begin_layout Standard
+Another issue would be to keep the network data in memory.
+ As the network matrix is sparse and large, we should use other more efficient
+ methods to save the data in memory.
+\end_layout
+
+\end_body
+\end_document

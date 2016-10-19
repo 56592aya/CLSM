@@ -44,6 +44,11 @@ end
 for k in 1:K, a in 1:N
     ϕ_nonlinks[a,k]=(sum(view(ϕ_links, view(ϕ_links, :,(K+1)) .== a, k)) + sum(view(ϕ_links, view(ϕ_links, :,(K+2)) .== a, k))) /deg_a[a]
 end
+
+# for k in 1:K, a in 1:N
+#     ϕ_nonlinks[ϕ_links[a, K+1], k] += ϕ_links[a, k]
+#     ϕ_nonlinks[ϕ_links[a, K+2], k] += ϕ_links[a, k]
+# end
 srand(1234)
 γ = zeros(Float64, (N, K))
 for k in 1:K, a in 1:N
