@@ -68,8 +68,8 @@
 
 \begin_body
 
-\begin_layout Part
-Data Description
+\begin_layout Section
+Data pre-Description
 \end_layout
 
 \begin_layout Standard
@@ -821,10 +821,12 @@ unique individuals.
  
 \end_layout
 
+\begin_layout Section
+Network
+\end_layout
+
 \begin_layout Standard
-Next I look into the names to see if there are any case issues that I am
- missing or any misbehavior that accounts for these differences with out
- network data, namely either of 
+The network data is represented in either of the 
 \shape italic
 byFollowers.csv
 \shape default
@@ -833,7 +835,21 @@ byFollowers.csv
 byFollowed.csv
 \shape default
 .
- But I have not changed any case sensitivities or special characters.
+ The network should be very sparse and should have some unconnected components.
+ The nodes come from the 79820 individuals for now we consider a sender/source
+ and a reciever/sink and later we can decide whether we want to keep the
+ directed or the undirected network.
+\end_layout
+
+\begin_layout Standard
+The network file is constructed in the Network.csv.
+\end_layout
+
+\begin_layout Standard
+Another issue would be to keep the network data in memory.
+ As the network matrix is sparse and large, we should use other more efficient
+ methods to save the data in memory.
+ Maybe for now though we would need adjacency list or some use of hash maps.
 \end_layout
 
 \end_body
