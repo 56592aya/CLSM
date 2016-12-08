@@ -100,3 +100,90 @@ byFollower.data <- byFollower.data[order(c(byFollower.data$source_id, byFollower
 byFollower.data <- read.csv("NetworkData/Network.csv", header = T, stringsAsFactors = F)
 Network <- byFollower.data
 Network <- Network[with(Network, order(source_id, sink_id)), ]
+
+library(plyr)
+sources.count <- table(Network$source_id)
+sources_count <- count(Network, "source_id")
+sinks.count <- table(Network$sink_id)
+sinks_count <- count(Network, "sink_id")
+
+head(sort(sources.count, decreasing = T))
+head(sort(sinks.count, decreasing = T))
+max(Network$source_id)
+max(Network$sink_id)
+unsourced <- setdiff(1:79280, Network$source_id)
+unsinked <- setdiff(1:79280, Network$sink_id)
+tail(intersect(persons.data$id, Network$follower))
+persons.data[persons.data$id == "00001020", 'followersNbr']
+persons.data[persons.data$id == "00001020", 'followsNbr']
+Network[Network$follower == "00001020","sink_id"]
+Network[Network$followed == "00001020","source_id"]
+
+
+
+persons.data[persons.data$id == "_Haley_", 'followersNbr']
+persons.data[persons.data$id == "_Haley_", 'followsNbr']
+Network[Network$follower == "_Haley_","sink_id"]
+Network[Network$followed == "_Haley_","source_id"]
+
+
+persons.data[persons.data$id == "00337766", 'followersNbr']
+persons.data[persons.data$id == "00337766", 'followsNbr']
+Network[Network$follower == "00337766","sink_id"]
+Network[Network$followed == "00337766","source_id"]
+
+
+##################
+persons.data$memberSince[1]
+persons.data$lastLogin[1]
+
+persons.data$lastLoginYear <- NA
+persons.data$lastLoginMonth <- NA
+persons.data$lastLoginDay <- NA
+
+persons.data$memberSinceYear <- NA
+persons.data$memberSinceMonth <- NA
+persons.data$memberSinceDay <- NA
+for(i in 1:nrow(persons.data)){
+    persons.data$lastLoginYear[i] = strsplit(strsplit(persons.data$lastLogin[i], split =  " ")[[1]], "-" )[[1]][1]
+    persons.data$lastLoginMonth[i] = strsplit(strsplit(persons.data$lastLogin[i], split =  " ")[[1]], "-" )[[1]][2]
+    persons.data$lastLoginDay[i] = strsplit(strsplit(persons.data$lastLogin[i], split =  " ")[[1]], "-" )[[1]][3]
+    persons.data$memberSinceYear[i] = strsplit(strsplit(persons.data$memberSince[i], split =  " ")[[1]], "-" )[[1]][1]
+    persons.data$memberSinceMonth[i] = strsplit(strsplit(persons.data$memberSince[i], split =  " ")[[1]], "-" )[[1]][2]
+    persons.data$memberSinceDay[i] = strsplit(strsplit(persons.data$memberSince[i], split =  " ")[[1]], "-" )[[1]][3]
+    
+}
+persons.data$sameDayOnly <- 0
+for(i in 1:nrow(persons.data)){
+    if(persons.data$memberSince[i] == persons.data$lastLogin[i]){
+        persons.data$sameDayOnly[i] <- 1
+    }
+        
+}
+sum(persons.data$sameDayOnly)/nrow(persons.data)
+
+sameDayGuys <- persons.data[persons.data$sameDayOnly == 1,]
+length(intersect(sameDayGuys$id, persons.products.data$personId))
+length(intersect(sameDayGuys$id, Whole.data$originator))
+length(intersect(persons.data$id, Whole.data$originator))
+
+
+x
+network <- read.csv("NetworkData/Network.csv")
+##look if there are a->b and b->a
+has.edge <- function(net, a, b){
+    has <- F
+    for(r in 1:nrow(net)){
+        if(net[r,5] == a && net[r,6] == b){
+            has=T
+        }
+    }
+    return(has)
+}
+
+for(r in 1:nrow(network)){
+    print(paste(r, "\n"))
+    if(has.edge(network, network$sink_id[r], network$source_id[r])){
+        print(paste("also has ", network$sink_id[r], "\t to\t", network$source_id[r], "\n"))
+    }
+}

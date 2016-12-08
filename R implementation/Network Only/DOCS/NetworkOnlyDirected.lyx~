@@ -1,0 +1,129 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\paragraph_spacing double
+\begin_inset Formula 
+\begin{eqnarray}
+\mathcal{L} & = & \underset{a}{\sum}\underset{b\in sink(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}z_{a\leftarrow b,k}log\,\beta_{k,0}+(1-z_{a\rightarrow b,k}z_{a\leftarrow b,k})log\,\epsilon\Bigg]\nonumber \\
+ & + & \underset{a}{\sum}\underset{\begin{array}{c}
+b\notin sink(a)\\
+b\notin source(a)
+\end{array}}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}z_{a\leftarrow b,k}log\,\beta_{k,1}+(1-z_{a\rightarrow b,k}z_{a\leftarrow b,k})log\,(1-\epsilon)\Bigg]\nonumber \\
+ & + & \underset{a}{\sum}\underset{b\in sink(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}log\,\theta_{a,k}+z_{a\leftarrow b,k}log\,\theta_{b,k}\Bigg]\nonumber \\
+ & - & \underset{a}{\sum}\underset{b\in sink(a)}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}\,log\,\phi_{a\rightarrow b,k}+z_{a\leftarrow b,k}\,log\,\phi_{a\leftarrow b,k}\Bigg]\nonumber \\
+ & + & \underset{a}{\sum}\underset{\begin{array}{c}
+b\notin sink(a)\\
+b\notin source(a)
+\end{array}}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\rightarrow b,k}log\,\theta_{a,k}-z_{a\rightarrow b,k}log\,\phi_{a\rightarrow b,k}\Bigg]\nonumber \\
+ & + & \underset{a}{\sum}\underset{\begin{array}{c}
+b\notin sink(a)\\
+b\notin source(a)
+\end{array}}{\sum}\underset{k}{\sum}\mathbb{E}_{q}\Bigg[z_{a\leftarrow b,k}log\,\theta_{b,k}-z_{a\leftarrow b,k}log\,\phi_{a\leftarrow b,k}\Bigg]\nonumber \\
+ & + & \sum_{a}log\,\Gamma(\sum_{k}\alpha_{k})-\sum_{a}\sum_{k}log\,\Gamma(\alpha_{k})+\sum_{a}\sum_{k}(\alpha_{k}-1)\mathbb{E}_{q}\Bigg[log\,\theta_{a,k}\Bigg]\nonumber \\
+ & - & \sum_{a}log\,\Gamma(\sum_{k}\gamma_{a,k})+\sum_{a}\sum_{k}log\,\Gamma(\gamma_{a,k})-\sum_{a}\sum_{k}(\gamma_{a,k}-1)\mathbb{E}_{q}\Bigg[log\,\theta_{a,k}\Bigg]\nonumber \\
+ & + & \sum_{k}log\,\Gamma(\eta_{0}+\eta_{1})-\sum_{k}log\,\Gamma(\eta_{0})-\sum_{k}log\,\Gamma(\eta_{1})+\sum_{k}(\eta_{0}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,0}\Bigg]\nonumber \\
+ & + & \sum_{k}(\eta_{1}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,1}\Bigg]\nonumber \\
+ & - & \sum_{k}log\,\Gamma(\tau_{k,0}+\tau_{k,1})+\sum_{k}log\,\Gamma(\tau_{k,0})+\sum_{k}log\,\Gamma(\tau_{k,1})-\sum_{k}(\tau_{k,0}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,0}\Bigg]\nonumber \\
+ & - & \sum_{k}(\tau_{k,1}-1)\mathbb{E}_{q}\Bigg[log\,\beta_{k,1}\Bigg]
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathcal{L} & = & \underset{a}{\sum}\underset{b\in sink(a)}{\sum}\underset{k}{\sum}\Bigg(\phi_{a\rightarrow b,k}\phi_{a\leftarrow b,k}\Big(\Psi(\tau_{k0})-\Psi(\tau_{k0}+\tau_{k1})\Big)+(1-\phi_{a\rightarrow b,k}\phi_{a\leftarrow b,k})log\,\epsilon\Bigg)\\
+ & + & \underset{a}{\sum}\underset{\begin{array}{c}
+b\notin sink(a)\end{array}}{\sum}\underset{k}{\sum}\Bigg(\phi_{a\rightarrow b,k}\phi_{a\leftarrow b,k}\Big(\Psi(\tau_{k1})-\Psi(\tau_{k0}+\tau_{k1})\Big)+(1-\phi_{a\rightarrow b,k}\phi_{a\leftarrow b,k})log\,(1-\epsilon)\Bigg)\\
+ & + & \underset{a}{\sum}\underset{b\in sink(a)}{\sum}\underset{k}{\sum}\Bigg(\phi_{a\rightarrow b,k}\Big(\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,})\Big)+\phi_{a\leftarrow b,k}\Big(\Psi(\gamma_{b,k})-\Psi(\sum_{k}\gamma_{b,})\Big)\Bigg)\\
+ & - & \underset{a}{\sum}\underset{b\in sink(a)}{\sum}\underset{k}{\sum\Bigg(}\phi_{a\rightarrow b,k}\,log\,\phi_{a\rightarrow b,k}+\phi_{a\leftarrow b,k}\,log\,\phi_{a\leftarrow b,k}\Bigg)\\
+ & + & \underset{a}{\sum}\underset{\begin{array}{c}
+b\notin sink(a)\end{array}}{\sum}\underset{k}{\sum}\Bigg(\phi_{a\rightarrow b,k}\Big(\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,})\Big)-\phi_{a\rightarrow b,k}log\,\phi_{a\rightarrow b,k}\Bigg)\\
+ & + & \underset{a}{\sum}\underset{\begin{array}{c}
+b\notin sink(a)\end{array}}{\sum}\underset{k}{\sum}\Bigg(\phi_{a\leftarrow b,k}\Big(\Psi(\gamma_{b,k})-\Psi(\sum_{k}\gamma_{b,})\Big)-\phi_{a\leftarrow b,k}log\,\phi_{a\leftarrow b,k}\Bigg)\\
+ & + & \sum_{a}log\,\Gamma(\sum_{k}\alpha_{k})-\sum_{a}\sum_{k}log\,\Gamma(\alpha_{k})+\sum_{a}\sum_{k}(\alpha_{k}-1)\Big(\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,})\Big)\\
+ & - & \sum_{a}log\,\Gamma(\sum_{k}\gamma_{a,k})+\sum_{a}\sum_{k}log\,\Gamma(\gamma_{a,k})-\sum_{a}\sum_{k}(\gamma_{a,k}-1)\Big(\Psi(\gamma_{a,k})-\Psi(\sum_{k}\gamma_{a,})\Big)\\
+ & + & \sum_{k}log\,\Gamma(\eta_{0}+\eta_{1})-\sum_{k}log\,\Gamma(\eta_{0})-\sum_{k}log\,\Gamma(\eta_{1})+\sum_{k}(\eta_{0}-1)\Big(\Psi(\tau_{k0})-\Psi(\tau_{k0}+\tau_{k1})\Big)\\
+ & + & \sum_{k}(\eta_{1}-1)\Big(\Psi(\tau_{k1})-\Psi(\tau_{k0}+\tau_{k1})\Big)\\
+ & - & \sum_{k}log\,\Gamma(\tau_{k,0}+\tau_{k,1})+\sum_{k}log\,\Gamma(\tau_{k,0})+\sum_{k}log\,\Gamma(\tau_{k,1})-\sum_{k}(\tau_{k,0}-1)\Big(\Psi(\tau_{k0})-\Psi(\tau_{k0}+\tau_{k1})\Big)\\
+ & - & \sum_{k}(\tau_{k,1}-1)\Big(\Psi(\tau_{k1})-\Psi(\tau_{k0}+\tau_{k1})\Big)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
