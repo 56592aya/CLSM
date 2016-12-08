@@ -5,10 +5,8 @@ include("../DirectedNetwork/youtilities.jl")
 include("../DirectedNetwork/inference.jl")
 
 using Plots
-# using NetworkGenr
-# using Inference
 
-plot(1:length(ELBO),ELBO)
+plot(1:length(Inference.ELBO),Inference.ELBO)
 for k in 1:NetworkGenr.K
     println(Inference.τ[1,k]/(sum(Inference.τ[:,k])))
 end

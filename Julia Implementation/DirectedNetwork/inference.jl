@@ -155,7 +155,7 @@ while !CONVERGED || (iteration > MAX_ITER)
     Elog_β[:] = Elog_Beta(τ)
     # writedlm("TestPrints/ELOG_THETA_$iteration.csv",Elog_Θ)
     # writedlm("TestPrints/ELOG_BETA_$iteration.csv",Elog_β)
-    if rem(iteration, 10) == 0
+    if rem(iteration, 15) == 0
         x = compute_elbo(links, ϕ_links_send,ϕ_links_recv,Elog_β,log_ϵ,Elog_Θ,η0,η1,τ,α,γ,nonlinks, log_1_minus_ϵ,ϕ_nonlinks_send, ϕ_nonlinks_recv)
         print(iteration)
         print(": ")
